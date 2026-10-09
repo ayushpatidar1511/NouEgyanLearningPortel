@@ -214,12 +214,12 @@ body{
   font-family: var(--font-body);
   color: var(--ink-text);
   min-height: 100vh;
-  overflow: hidden;
+  min-height: 100dvh;   /* mobile browser ki address bar ke liye */
 }
 
-/* Faint carved-arch motif behind the whole viewport */
 .stage{
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -227,11 +227,10 @@ body{
   background:#ece3d6;
 }
 
-/* ---------- Shell ---------- */
 .gate-shell{
   width: 100%;
   max-width: 1080px;
-  max-height: 630px;
+  /* max-height: 630px;  <-- ye line hata do */
   background: var(--parchment);
   border: 1px solid var(--brass-soft);
   box-shadow: 0 40px 90px -30px rgba(0,0,0,0.6);
@@ -481,9 +480,22 @@ body{
   color: var(--parchment);
 }
 
-@media (max-width: 767px){
-  .tablet, .scriptorium{ padding: 2.2rem 1.6rem; }
-  .tablet h1{ font-size: 1.9rem; }
+@media (min-width: 992px) and (min-height: 700px){
+  body{ overflow: hidden; }
+  .gate-shell{ max-height: 630px; }
+}
+
+@media (max-width: 991px){
+  .stage{ align-items: flex-start; padding: 12px; }
+  .gate-shell{ border-radius: 20px; }
+  .tablet{ padding: 1.6rem 1.4rem; min-height: auto; }
+  .tablet h1{ font-size: 1.7rem; }
+  .tablet p.lede{ max-width: none; margin-bottom: 1rem; }
+  .tablet .contact{ padding-top: 1.2rem; }
+  .scriptorium{ padding: 1.6rem 1.4rem; }
+  .scriptorium h2{ font-size: 1.5rem; }
+  .role-strip{ flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .remember-row{ flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
 }
 </style>
 </head>
