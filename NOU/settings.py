@@ -15,41 +15,62 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# True when running on Vercel (Vercel sets VERCEL=1 automatically)
+ON_VERCEL = bool(os.environ.get("VERCEL"))
+
+
+# ---------------------------------------------------------------------------
+# Core security settings
+# ---------------------------------------------------------------------------
+
+# SECURITY WARNING: set DJANGO_SECRET_KEY in Vercel environment variables!
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
     "dev-only-key-change-me"
 )
 
+# DEBUG is False unless you explicitly set DEBUG=true
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
+# Hosts: localhost + any *.vercel.app domain + anything you add through the
+# ALLOWED_HOSTS environment variable (comma separated).
 ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".vercel.app",
+]
+
+ALLOWED_HOSTS += [
     host.strip()
-    for host in os.environ.get(
-        "ALLOWED_HOSTS",
-        "localhost,127.0.0.1"
-    ).split(",")
+    for host in os.environ.get("ALLOWED_HOSTS", "").split(",")
     if host.strip()
 ]
+
+# Needed for login / forms / admin to work over HTTPS on Vercel
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.vercel.app",
+]
+
+CSRF_TRUSTED_ORIGINS += [
+    origin.strip()
+    for origin in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",")
+    if origin.strip()
+]
+
+# Vercel sits behind a proxy that terminates HTTPS
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 if DEBUG:
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-
-# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-
-# ALLOWED_HOSTS = [
-#     host.strip()
-#     for host in os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
-#     if host.strip()
-# ]
-
-
+# ---------------------------------------------------------------------------
 # Application definition
+# ---------------------------------------------------------------------------
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -58,11 +79,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp'
+    'myapp',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # serves static files on Vercel
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,19 +113,36 @@ TEMPLATES = [
 WSGI_APPLICATION = 'NOU.wsgi.application'
 
 
-# Database
+# ---------------------------------------------------------------------------
+# Database (SQLite)
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
+# ---------------------------------------------------------------------------
+# Vercel's project folder is read-only, so on Vercel the committed db.sqlite3
+# is copied to /tmp at startup. Existing data can be READ, but any new data
+# (signups, form entries, sessions) is temporary and may disappear.
+
+import shutil
+
+if ON_VERCEL:
+    _bundled_db = BASE_DIR / 'db.sqlite3'
+    DB_PATH = Path('/tmp/db.sqlite3')
+    if _bundled_db.exists() and not DB_PATH.exists():
+        shutil.copy(_bundled_db, DB_PATH)
+else:
+    DB_PATH = BASE_DIR / 'db.sqlite3'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': DB_PATH,
     }
 }
 
 
+# ---------------------------------------------------------------------------
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
+# ---------------------------------------------------------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -121,8 +160,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# ---------------------------------------------------------------------------
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
+# ---------------------------------------------------------------------------
 
 LANGUAGE_CODE = 'en-us'
 
@@ -133,15 +174,31 @@ USE_I18N = True
 USE_TZ = True
 
 
+# ---------------------------------------------------------------------------
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
+# ---------------------------------------------------------------------------
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Only include the 'static' folder if it exists (avoids warnings/errors)
+STATICFILES_DIRS = [BASE_DIR / 'static'] if (BASE_DIR / 'static').exists() else []
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 
 
+# ---------------------------------------------------------------------------
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
+# ---------------------------------------------------------------------------
 
 MAILERS = {
     'default': {
@@ -150,17 +207,35 @@ MAILERS = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Media files
+# ---------------------------------------------------------------------------
+# Note: uploaded files can't be stored on Vercel's disk permanently. For
+# production uploads use external storage (Cloudinary, S3, Supabase, etc.).
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
+# ---------------------------------------------------------------------------
+# Google OAuth
+# ---------------------------------------------------------------------------
+
 GOOGLE_CLIENT_SECRETS_FILE = BASE_DIR / 'client_secret.json'
 
-GOOGLE_REDIRECT_URI = "http://127.0.0.1:8000/google/callback/"
+# Local default; on Vercel set GOOGLE_REDIRECT_URI to
+# https://<your-domain>.vercel.app/google/callback/
+# (and add the same URL in Google Cloud Console -> Authorized redirect URIs)
+GOOGLE_REDIRECT_URI = os.environ.get(
+    "GOOGLE_REDIRECT_URI",
+    "http://127.0.0.1:8000/google/callback/"
+)
 
 GOOGLE_SCOPES = [
     'https://www.googleapis.com/auth/meetings.space.created'
 ]
 
 
-LOGIN_URL='home'
+LOGIN_URL = 'home'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

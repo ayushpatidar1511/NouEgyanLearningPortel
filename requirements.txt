@@ -140,11 +140,18 @@
 # webencodings==0.5.1
 # websocket-client==1.8.0
 
+# Django==6.1
+# google-api-python-client==2.200.0
+# google-auth==2.58.1
+# google-auth-httplib2==0.4.2
+# google-auth-oauthlib==1.4.1
+# google-apps-meet==0.5.1
+# openai==3.3.1
 Django==6.1
+whitenoise
 google-api-python-client==2.200.0
 google-auth==2.58.1
 google-auth-httplib2==0.4.2
 google-auth-oauthlib==1.4.1
 google-apps-meet==0.5.1
 openai==3.3.1
-
