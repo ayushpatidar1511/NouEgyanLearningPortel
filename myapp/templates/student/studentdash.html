@@ -1,0 +1,138 @@
+{% extends "student/base.html" %}
+
+{% block content %}
+<main class="content">
+  <!-- hero stats -->
+  <section class="hero-stats">
+    <div class="hero-card">
+      <div class="hero-label">Current Subjects</div>
+      <div class="hero-number">{{current_subject}}</div>
+      <div class="hero-caption">▲ Subjects in Semester I</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-label">Assignments</div>
+      <div class="hero-number">{{current_assignment}}</div>
+      <div class="hero-caption">▲ Published course tasks</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-label">Attendance</div>
+      <div class="hero-number">{{attendance_percentage}}%</div>
+      <div class="hero-caption">▲ Current attendance performance</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-label">Online Classes</div>
+      <div class="hero-number">{{current_class}}</div>
+      <div class="hero-caption">▲ Upcoming Google Meet classes</div>
+    </div>
+  </section>
+
+  <!-- mini stats -->
+  <section class="mini-stats">
+    <div class="mini-card">
+      <div class="mini-top">
+        <div class="mini-badge">Q</div>
+        <span class="mini-tag">TESTS</span>
+      </div>
+      <div class="mini-number">{{current_test}}</div>
+      <div class="mini-caption">Online Tests</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-top">
+        <div class="mini-badge">M</div>
+        <span class="mini-tag">CONTENT</span>
+      </div>
+      <div class="mini-number">{{current_SM}}</div>
+      <div class="mini-caption">Study Materials</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-top">
+        <div class="mini-badge">✓</div>
+        <span class="mini-tag">WORK</span>
+      </div>
+      <div class="mini-number">{{current_Submission}}</div>
+      <div class="mini-caption">My Submissions</div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-top">
+        <div class="mini-badge">&lt;/&gt;</div>
+        <span class="mini-tag">LAB</span>
+      </div>
+      <div class="mini-number">0</div>
+      <div class="mini-caption">Programming Lab Runs</div>
+    </div>
+  </section>
+
+  <!-- quick actions -->
+  <section class="section-head">
+    <h2 class="section-title">Quick Actions</h2>
+    <div class="section-sub">Continue your learning</div>
+  </section>
+
+  <section class="quick-grid">
+    <a href="{% url 's_study_material' %}">
+      <div class="quick-card">
+      <div class="quick-icon">M</div>
+      <div>
+        <div class="quick-title">Study Material</div>
+        <div class="quick-desc">Open course notes and learning resources.</div>
+      </div>
+      <div class="quick-arrow">→</div>
+    </div>
+    </a>
+    <a href="{% url 'student_code_lab' %}">
+      <div class="quick-card">
+      <div class="quick-icon">&lt;/&gt;</div>
+      <div>
+        <div class="quick-title">Programming Lab</div>
+        <div class="quick-desc">Write, run and test your programs.</div>
+      </div>
+      <div class="quick-arrow">→</div>
+    </div>
+    </a>
+    <a href="{% url 's_assignments' %}">
+      <div class="quick-card">
+      <div class="quick-icon">A</div>
+      <div>
+        <div class="quick-title">Assignments</div>
+        <div class="quick-desc">View and submit course tasks.</div>
+      </div>
+      <div class="quick-arrow">→</div>
+    </div>
+    </a>
+    <a href="{% url 'student_classes' %}">
+      <div class="quick-card">
+      <div class="quick-icon">▶</div>
+      <div>
+        <div class="quick-title">Google Meet Classes</div>
+        <div class="quick-desc">View schedule and join live classes.</div>
+      </div>
+      <div class="quick-arrow">→</div>
+    </div>
+    </a>
+  </section>
+
+  <!-- bottom panels -->
+  <section class="panels">
+    <div class="panel">
+      <div class="panel-top">
+        <div>
+          <div class="panel-title">Upcoming Classes</div>
+          <div class="panel-sub">Your live learning schedule</div>
+        </div>
+        <span class="panel-tag">MY SCHEDULE</span>
+      </div>
+      <div class="panel-empty">No classes scheduled yet.</div>
+    </div>
+    <div class="panel">
+      <div class="panel-top">
+        <div>
+          <div class="panel-title">Important Notices</div>
+          <div class="panel-sub">Latest student communication</div>
+        </div>
+        <span class="panel-tag">LATEST</span>
+      </div>
+      <div class="panel-empty">No announcements available.</div>
+    </div>
+  </section>
+</main>
+{% endblock content %}

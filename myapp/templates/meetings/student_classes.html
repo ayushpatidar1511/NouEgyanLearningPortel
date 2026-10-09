@@ -1,0 +1,683 @@
+
+{% extends "student/base.html" %}
+
+{% block title %}My Online Classes{% endblock %}
+
+
+
+{% block content %}
+
+<style>
+  /* =========================================================
+     NOU e-GYAN — STUDENT ONLINE CLASSES
+     Premium Plum & Champagne Theme (spacing fixed)
+     ========================================================= */
+
+  .student-meets {
+    font-family: "Poppins", sans-serif;
+    color: #241b27;
+
+    /* page ke charo taraf breathing space */
+    padding: 28px 32px 56px;
+    max-width: 1400px;
+    {% comment %} margin: 0 auto; {% endcomment %}
+    box-sizing: border-box;
+  }
+
+  /* ========== HEADER ========== */
+
+  .student-meets-head {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding: 32px 36px;
+    margin-bottom: 32px;
+
+    border-radius: 18px;
+
+    background:
+      radial-gradient(circle at 92% 15%, rgba(201, 162, 39, 0.16), transparent 26%),
+      linear-gradient(135deg, #4a1e3d, #2a1026);
+
+    color: #f6efe2;
+    box-shadow: 0 12px 30px rgba(42, 16, 38, 0.13);
+  }
+
+  .student-meets-head::after {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    right: -65px;
+    bottom: -95px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 162, 39, 0.28);
+    pointer-events: none;
+  }
+
+  .student-meets-head-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .student-meets-eyebrow {
+    margin-bottom: 10px;
+    color: #d9c27c;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+  }
+
+  .student-meets-head h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+  }
+
+  .student-meets-head p {
+    margin: 10px 0 0;
+    color: rgba(246, 239, 226, 0.75);
+    font-size: 13.5px;
+    line-height: 1.6;
+    max-width: 640px;
+  }
+
+  .student-session-badge {
+    position: relative;
+    z-index: 2;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(201, 162, 39, 0.4);
+    background: rgba(246, 239, 226, 0.07);
+
+    color: #d9c27c;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .student-session-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d9c27c;
+  }
+
+  /* ========== GRID ========== */
+
+  .student-meet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    align-items: stretch;   /* sab cards same height */
+  }
+
+  /* ========== CARD ========== */
+
+  .student-meet-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    padding: 26px 24px 24px;
+
+    background: #fff;
+    border: 1px solid #eadfe6;
+    border-radius: 17px;
+    box-shadow: 0 8px 25px rgba(42, 16, 38, 0.055);
+
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+
+  .student-meet-card:hover {
+    transform: translateY(-2px);          /* pehle -4px tha */
+    border-color: #d9c4d1;
+    box-shadow: 0 12px 28px rgba(42, 16, 38, 0.09);
+  }
+
+  .student-meet-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: 17px 17px 0 0;
+    background: linear-gradient(90deg, #4a1e3d, #c9a227);
+  }
+
+  /* ========== CARD TOP ========== */
+
+  .student-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+
+    min-height: 62px;        /* title 1 line ho ya 2, neeche ka content align rahe */
+    margin-bottom: 18px;
+  }
+
+  .student-class-label {
+    color: #9b8d96;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .student-meet-card h2 {
+    margin: 6px 0 0;
+    color: #2a1026;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-transform: capitalize;
+  }
+
+  /* ========== STATUS ========== */
+
+  .student-meet-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 7px 12px;
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .student-live { background: #e4f6ea; color: #19703a; }
+  .student-scheduled { background: #fff5df; color: #986d13; }
+  .student-closed { background: #f1f1f3; color: #686873; }
+
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #26934e;
+    box-shadow: 0 0 0 3px rgba(38, 147, 78, 0.12);
+  }
+
+  /* ========== INFO ========== */
+
+  .student-meet-info {
+    padding: 18px 0;
+    border-top: 1px solid #f0e9ee;
+    border-bottom: 1px solid #f0e9ee;
+  }
+
+  .student-info-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .student-info-row:first-child { margin-top: 0; }
+  .student-info-row:last-child { margin-bottom: 0; }
+
+  .student-info-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    border-radius: 9px;
+    background: #f8f3f6;
+    color: #4a1e3d;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .student-info-content { min-width: 0; }
+
+  .student-info-label {
+    display: block;
+    margin-bottom: 3px;
+    color: #a0979d;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .student-info-value {
+    display: block;
+    color: #3a3038;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ========== DATE BOX ========== */
+
+  .student-class-time {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 18px;
+    padding: 12px 14px;
+
+    border-radius: 11px;
+    background: #faf7f2;
+    border: 1px solid #eee6d8;
+  }
+
+  .student-time-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    border-radius: 9px;
+    background: #f0e5c8;
+    color: #7d611d;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .student-time-label {
+    font-size: 9.5px;
+    color: #9b9284;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .student-time-value {
+    margin-top: 3px;
+    color: #443a2d;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  /* ========== ACTION ========== */
+
+  .student-meet-action {
+    margin-top: auto;     /* button hamesha card ke bottom mein */
+    padding-top: 20px;
+  }
+
+  .student-join,
+  .student-disabled {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 13px 16px;
+    border-radius: 11px;
+
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s ease;
+  }
+
+  .student-join {
+    background: #4a1e3d;
+    color: #fff;
+    box-shadow: 0 5px 14px rgba(74, 30, 61, 0.16);
+  }
+
+  .student-join:hover {
+    background: #35142c;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  .student-disabled {
+    background: #f1f1f2;
+    color: #8b8b91;
+    cursor: default;
+  }
+
+  /* ========== EMPTY STATE ========== */
+
+  .student-empty {
+    grid-column: 1 / -1;
+    padding: 70px 25px;
+    text-align: center;
+    background: #fff;
+    border: 1px dashed #d8cbd4;
+    border-radius: 17px;
+    color: #77727a;
+  }
+
+  .student-empty-icon {
+    width: 62px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #f4eaf1;
+    color: #4a1e3d;
+    font-size: 22px;
+  }
+
+  .student-empty h3 {
+    margin: 0 0 8px;
+    color: #35142c;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .student-empty p {
+    margin: 0;
+    font-size: 13px;
+    color: #918a91;
+  }
+
+  /* ========== RESPONSIVE ========== */
+
+  @media (max-width: 700px) {
+    .student-meets { padding: 18px 16px 40px; }
+    .student-meets-head { padding: 24px 22px; margin-bottom: 24px; }
+    .student-meets-head h1 { font-size: 22px; }
+    .student-session-badge { display: none; }
+    .student-meet-grid { grid-template-columns: 1fr; gap: 18px; }
+  }
+</style>
+
+
+
+
+
+<section class="student-meets">
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <div class="student-meets-head">
+
+    <div class="student-meets-head-content">
+
+      <div class="student-meets-eyebrow">
+        NOU e-GYAN · STUDENT ZONE
+      </div>
+
+      <h1>
+        My Online Classes
+      </h1>
+
+      <p>
+        Join your scheduled live classes and attend online sessions
+        conducted by your teachers.
+      </p>
+
+    </div>
+
+
+    <div class="student-session-badge">
+
+      <span class="student-session-dot"></span>
+
+      SESSION 2026–2027
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CLASS GRID
+  ========================== -->
+
+  <div class="student-meet-grid">
+
+    {% for meeting in upcoming_meetings %}
+
+    <article class="student-meet-card">
+
+
+      <!-- CARD HEADER -->
+
+      <div class="student-card-top">
+
+        <div>
+
+          <div class="student-class-label">
+            ONLINE CLASS
+          </div>
+
+          <h2>
+            {{ meeting.class_title }}
+          </h2>
+
+        </div>
+
+
+        {% if meeting.status == 'live' %}
+
+          <span class="student-meet-status student-live">
+
+            <span class="live-dot"></span>
+
+            LIVE NOW
+
+          </span>
+
+        {% elif meeting.status == 'closed' %}
+
+          <span class="student-meet-status student-closed">
+            CLOSED
+          </span>
+
+        {% else %}
+
+          <span class="student-meet-status student-scheduled">
+            SCHEDULED
+          </span>
+
+        {% endif %}
+
+      </div>
+
+
+      <!-- INFORMATION -->
+
+      <div class="student-meet-info">
+
+
+        <!-- COURSE -->
+
+        <div class="student-info-row">
+
+          <div class="student-info-icon">
+            C
+          </div>
+
+          <div class="student-info-content">
+
+            <span class="student-info-label">
+              Course
+            </span>
+
+            <span class="student-info-value">
+              {{ meeting.course|default:"Not specified" }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- SUBJECT -->
+
+        <div class="student-info-row">
+
+          <div class="student-info-icon">
+            S
+          </div>
+
+          <div class="student-info-content">
+
+            <span class="student-info-label">
+              Subject
+            </span>
+
+            <span class="student-info-value">
+              {{ meeting.subject|default:"Not specified" }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- TEACHER -->
+
+        <div class="student-info-row">
+
+          <div class="student-info-icon">
+            T
+          </div>
+
+          <div class="student-info-content">
+
+            <span class="student-info-label">
+              Instructor
+            </span>
+
+            <span class="student-info-value">
+
+              {{ meeting.teacher.get_full_name|default:meeting.teacher.username }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- DATE / TIME -->
+
+      <div class="student-class-time">
+
+        <div class="student-time-icon">
+          ⏱
+        </div>
+
+        <div>
+
+          <div class="student-time-label">
+            CLASS SCHEDULE
+          </div>
+
+          <div class="student-time-value">
+
+            {{ meeting.class_date }}
+            &nbsp; · &nbsp;
+            {{ meeting.class_time }}
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTION -->
+
+      <div class="student-meet-action">
+
+        {% if meeting.status == 'live' %}
+
+          <a
+            class="student-join"
+            href="{% url 'join_meeting' meeting.id %}"
+          >
+            <span>▶</span>
+            Join Live Class
+          </a>
+
+
+        {% elif meeting.status == 'closed' %}
+
+          <span class="student-disabled">
+            Class Ended
+          </span>
+
+
+        {% else %}
+
+          <span class="student-disabled">
+            Join Class · Not Started
+          </span>
+
+        {% endif %}
+
+      </div>
+
+
+    </article>
+
+    {% empty %}
+
+
+    <!-- EMPTY STATE -->
+
+    <div class="student-empty">
+
+      <div class="student-empty-icon">
+        ◉
+      </div>
+
+      <h3>
+        No Online Classes Scheduled
+      </h3>
+
+      <p>
+        Your upcoming online classes will appear here
+        once they are scheduled for your course.
+      </p>
+
+    </div>
+
+
+    {% endfor %}
+
+  </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+<header class="topbar">
+  <div style="display: flex; align-items: center; gap: 14px">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+      ☰
+    </button>
+    <div>
+      <h1 class="page-title">Student Dashboard</h1>
+      <div class="page-sub">NOU e-Gyan · Student Workspace</div>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="profile-chip">
+      <div class="profile-avatar">{{ request.user.Student.student_name|slice:":2"|upper }}</div>
+      <div>
+        <div class="profile-name">{{ request.user.Student.student_name }}</div>
+        <div class="profile-role">Student</div>
+      </div>
+    </div>
+    <a href="{% url "logout" %}"><button class="logout-btn">Logout</button></a>
+  </div>
+</header>

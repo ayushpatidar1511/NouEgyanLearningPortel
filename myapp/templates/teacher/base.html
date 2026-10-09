@@ -1,0 +1,114 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Teacher Dashboard — NOU e-Gyan Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "css/teacher.css" %}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style>
+   /* =========================================
+   NOU SUCCESS / ERROR POPUP
+   ========================================= */
+
+.nou-alert-popup {
+    border-radius: 28px !important;
+}
+
+.nou-alert-title {
+    font-family: "Work Sans", sans-serif !important;
+    font-weight: 700 !important;
+    color: #171a2e !important;
+}
+
+.nou-alert-message {
+    font-family: "Work Sans", sans-serif !important;
+    font-size: 18px !important;
+    color: #68758a !important;
+}
+
+.nou-alert-button {
+    border-radius: 15px !important;
+    padding: 12px 30px !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+}
+</style>
+  <body>
+    
+    <div class="scrim" id="scrim"></div>
+
+    <div class="shell">
+        {% include "teacher/includes/sidebar.html" %}
+
+        <div class="main canvas-texture">
+            {% include "teacher/includes/navbar.html" %}
+
+            {% block content %}{% endblock content %}
+            {% include "teacher/includes/footer.html" %}
+
+        </div>
+
+      </div>
+      
+      
+      {% if messages %}
+      
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          
+          {% for message in messages %}
+          
+          Swal.fire({
+            icon: "{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}",
+            
+            title: "{% if message.tags == 'success' %}Successfully{% elif message.tags == 'error' %}Error{% elif message.tags == 'warning' %}Warning{% else %}Information{% endif %}",
+            
+            text: "{{ message|escapejs }}",
+            
+            confirmButtonText: "OK",
+            
+            confirmButtonColor: "#e85d04",
+            
+            width: "450px",
+            
+            padding: "2rem",
+            
+            background: "#ffffff",
+            
+            customClass: {
+              popup: "nou-alert-popup",
+              title: "nou-alert-title",
+              htmlContainer: "nou-alert-message",
+              confirmButton: "nou-alert-button"
+            }
+          });
+          
+          {% endfor %}
+          
+        });
+      </script>
+      
+      {% endif %}
+      
+      
+      
+      <script>
+        const sidebar = document.getElementById('sidebar');
+        const scrim = document.getElementById('scrim');
+        const toggle = document.getElementById('menuToggle');
+        function openMenu(){ sidebar.classList.add('open'); scrim.classList.add('show'); }
+        function closeMenu(){ sidebar.classList.remove('open'); scrim.classList.remove('show'); }
+        toggle && toggle.addEventListener('click', () => {
+          sidebar.classList.contains('open') ? closeMenu() : openMenu();
+        });
+        scrim.addEventListener('click', closeMenu);
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>

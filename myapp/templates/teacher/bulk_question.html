@@ -1,0 +1,354 @@
+{% extends "teacher/base.html" %} {% block content %}
+<style>
+  /* ---------------- Green theme tokens ---------------- */
+  .main-content {
+    --ink: #171a2e;
+    --brick: #2e4a34;
+    --brick-deep: #1d3323;
+    --parchment: #f3ecda;
+    --parchment-2: #e9dfc5;
+    --brass: #b8863b;
+    --brass-soft: #d8b876;
+    --ink-text: #2a2418;
+    --font-display: "Cinzel", serif;
+    --font-body: "Work Sans", sans-serif;
+
+    {% comment %} margin-left: 278px; {% endcomment %}
+    padding: 2.2rem 2.4rem 3rem;
+    font-family: var(--font-body);
+    color: var(--ink-text);
+  }
+
+  /* ---------------- Hero banner ---------------- */
+  .hero {
+    background: linear-gradient(155deg, var(--brick) 0%, var(--brick-deep) 100%);
+    border: 1px solid var(--brick-deep);
+    border-radius: 16px;
+    color: var(--parchment);
+    padding: 30px 34px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2.2rem;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: -40px;
+    bottom: -40px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(216, 184, 118, 0.1);
+  }
+  .hero-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .hero-badge {
+    background: rgba(243, 236, 218, 0.1);
+    border: 1px solid rgba(216, 184, 118, 0.4);
+    color: var(--brass-soft);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 6px 15px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .hero .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--brass-soft);
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.8vw, 1.9rem);
+    line-height: 1.2;
+    margin: 0 0 8px;
+  }
+  .hero .sub {
+    font-size: 0.9rem;
+    color: rgba(243, 236, 218, 0.8);
+    max-width: 520px;
+  }
+
+  /* ---------------- Cards ---------------- */
+  .split-card {
+    background: #fff;
+    border: 1px solid var(--parchment-2);
+    border-radius: 14px;
+    padding: 28px 32px 32px;
+    height: 100%;
+  }
+  .split-card .head-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .split-card h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+  .title-rule {
+    width: 46px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--brick);
+    margin-bottom: 26px;
+  }
+  .count-pill {
+    background: rgba(46, 74, 52, 0.08);
+    color: var(--brick);
+    border: 1px solid var(--parchment-2);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 14px;
+  }
+
+  /* ---------------- Fields ---------------- */
+  .field-group {
+    margin-bottom: 1.5rem;
+  }
+  .field-label {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .field-group input[type="file"] {
+    width: 100%;
+    border: 1px solid var(--parchment-2);
+    border-radius: 9px;
+    background: #fff;
+    color: var(--ink-text);
+    font-family: var(--font-body);
+    padding: 0.6rem 0.8rem;
+    font-size: 0.88rem;
+  }
+  .field-group input[type="file"]:focus {
+    outline: none;
+    border-color: var(--brick);
+    box-shadow: 0 0 0 3px rgba(46, 74, 52, 0.12);
+  }
+  .field-group input[type="file"]::file-selector-button {
+    background: rgba(46, 74, 52, 0.08);
+    color: var(--brick);
+    border: 1px solid var(--parchment-2);
+    border-radius: 7px;
+    font-weight: 700;
+    padding: 0.4rem 0.9rem;
+    margin-right: 0.8rem;
+    cursor: pointer;
+  }
+
+  .split-card .form-control,
+  .split-card .form-select {
+    width: 100%;
+    border: 1px solid var(--parchment-2);
+    background: #fff;
+    color: var(--ink-text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 12px 14px;
+    border-radius: 9px;
+  }
+  .split-card .form-control:focus,
+  .split-card .form-select:focus {
+    outline: none;
+    border-color: var(--brick);
+    box-shadow: 0 0 0 3px rgba(46, 74, 52, 0.12);
+  }
+  .split-card textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  /* ---------------- Buttons ---------------- */
+  .btn-ghost {
+    background: transparent;
+    border: 1.5px solid var(--brick);
+    color: var(--brick);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.45rem 1rem;
+    border-radius: 9px;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+  }
+  .btn-ghost:hover {
+    background: var(--brick);
+    color: var(--parchment);
+  }
+  .btn-brick {
+    background: linear-gradient(135deg, var(--brick) 0%, var(--brick-deep) 100%);
+    color: var(--parchment);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 13px 26px;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+  }
+  .btn-brick:hover {
+    color: var(--parchment);
+    filter: brightness(1.06);
+  }
+
+  /* ---------------- Info box ---------------- */
+  .info-box {
+    background: rgba(46, 74, 52, 0.05);
+    border: 1px solid var(--parchment-2);
+    border-left: 3px solid var(--brass);
+    border-radius: 9px;
+    padding: 1rem 1.2rem;
+    font-size: 0.85rem;
+    color: #5c5642;
+    line-height: 1.65;
+    margin-top: 1.4rem;
+  }
+  .info-box b {
+    color: var(--ink);
+  }
+
+  /* ---------------- Question list ---------------- */
+  .q-item {
+    background: rgba(46, 74, 52, 0.04);
+    border: 1px solid var(--parchment-2);
+    border-left: 3px solid var(--brass);
+    border-radius: 9px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .q-item h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .q-item .opt {
+    font-size: 0.9rem;
+    color: #5c5642;
+    margin: 0.15rem 0;
+  }
+  .q-item .meta {
+    font-weight: 700;
+    color: var(--brick);
+    margin: 0.5rem 0 0.7rem;
+    font-size: 0.9rem;
+  }
+  .btn-edit,
+  .btn-del {
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.4rem 0.9rem;
+    border: 1.5px solid var(--brick);
+    border-radius: 9px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+  }
+  .btn-edit {
+    background: transparent;
+    color: var(--brick);
+  }
+  .btn-edit:hover {
+    background: var(--brick);
+    color: var(--parchment);
+  }
+  .btn-del {
+    background: var(--brick);
+    color: var(--parchment);
+  }
+  .btn-del:hover {
+    background: var(--brick-deep);
+    color: var(--parchment);
+  }
+  .empty {
+    color: #5c5642;
+    font-size: 0.9rem;
+    padding: 1rem 0;
+  }
+
+  @media (max-width: 992px) {
+    .main-content {
+      margin-left: 0;
+      padding: 1.2rem;
+    }
+  }
+</style>
+
+<div class="main-content">
+  <div class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow">NOU DIGITAL CAMPUS</div>
+        <h1>MCQ Question Bank</h1>
+        <div class="sub">
+          Upload many questions at once from a CSV file for the selected
+          online test.
+        </div>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge">ACADEMIC ERP</div>
+        <div class="hero-badge">SESSION 2026-2027</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12">
+    <div class="split-card">
+      <div class="head-row">
+        <div>
+          <h2>Bulk Question Upload - {{ test.name|default:"class" }}</h2>
+          <div class="title-rule"></div>
+        </div>
+        <a class="btn-ghost" href="?download_sample=1">Download Sample CSV</a>
+      </div>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="field-group">
+          <label class="field-label" for="csvFile">Select CSV File</label>
+          <input name="csv_file" accept=".csv" type="file" id="csvFile" required />
+        </div>
+
+        <button type="submit" name="bulk_upload" class="btn btn-brick">
+          Upload Questions in Bulk
+        </button>
+      </form>
+
+      <div class="info-box">
+        <b>Required CSV columns:</b><br />
+        question, option_a, option_b, option_c, option_d, correct_option,
+        marks<br /><br />
+        correct_option must be A, B, C or D; marks must be 1 or more.
+        Duplicate questions and invalid rows are skipped automatically.
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

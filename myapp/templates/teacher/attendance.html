@@ -1,0 +1,203 @@
+{% extends "teacher/base.html" %}
+
+{% block content %}
+<main class="content">
+<style>
+  :root {
+    --ink: #171a2e;
+    --brick: #2e4a34;
+    --brick-deep: #1d3323;
+    --parchment: #f3ecda;
+    --parchment-2: #e9dfc5;
+    --brass: #b8863b;
+    --brass-soft: #d8b876;
+    --ink-text: #2a2418;
+    --font-display: "Cinzel", serif;
+    --font-body: "Work Sans", sans-serif;
+  }
+  .ms-wrap { font-family: var(--font-body); color: var(--ink-text); }
+
+  /* ---------- Hero ---------- */
+  .ms-hero {
+    position: relative; overflow: hidden; border-radius: 16px;
+    padding: 30px 34px;
+    background: linear-gradient(155deg, var(--brick) 0%, var(--brick-deep) 100%);
+    border: 1px solid var(--brick-deep);
+    color: var(--parchment); margin-bottom: 24px;
+  }
+  .ms-hero::after {
+    content: ""; position: absolute; right: -40px; bottom: -40px;
+    width: 150px; height: 150px; border-radius: 50%;
+    background: rgba(216, 184, 118, 0.1);
+  }
+  .ms-hero-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px; position: relative; z-index: 1; flex-wrap: wrap;
+  }
+  .ms-eyebrow { font-size: .7rem; letter-spacing: .14em; font-weight: 700; color: var(--brass-soft); margin-bottom: 10px; }
+  .ms-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 2.8vw, 1.9rem); margin: 0 0 8px; line-height: 1.2; }
+  .ms-desc { font-size: .9rem; color: rgba(243, 236, 218, .8); max-width: 640px; }
+  .ms-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+  .ms-chip {
+    background: rgba(243, 236, 218, .1); border: 1px solid rgba(216, 184, 118, .4);
+    color: var(--brass-soft); font-size: .7rem; font-weight: 700; letter-spacing: .04em;
+    padding: 6px 15px; border-radius: 999px; white-space: nowrap;
+  }
+
+  /* ---------- Form panel ---------- */
+  .ms-form-panel {
+    background: #fff; border: 1px solid var(--parchment-2);
+    border-radius: 14px; padding: 28px 32px 32px; margin-bottom: 24px;
+  }
+  .ms-form-title { font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; color: var(--ink); margin: 0 0 12px; }
+  .ms-form-rule { width: 46px; height: 4px; border-radius: 2px; background: var(--brick); margin-bottom: 26px; }
+  .ms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; align-items: end; }
+  .ms-field { display: flex; flex-direction: column; gap: 8px; }
+  .ms-label { font-size: .86rem; font-weight: 700; color: var(--ink); }
+  .ms-input, .ms-select {
+    border: 1px solid var(--parchment-2); border-radius: 9px; padding: 12px 14px;
+    font-size: .9rem; font-family: var(--font-body); color: var(--ink-text);
+    background: #fff; width: 100%;
+  }
+  .ms-input:focus, .ms-select:focus {
+    outline: none; border-color: var(--brick);
+    box-shadow: 0 0 0 3px rgba(46, 74, 52, .12);
+  }
+
+  /* ---------- Buttons ---------- */
+  .ms-btn {
+    background: linear-gradient(135deg, var(--brick) 0%, var(--brick-deep) 100%);
+    color: var(--parchment); border: none; padding: 12px 24px;
+    border-radius: 9px; font-size: .9rem; font-weight: 700; cursor: pointer;
+  }
+  .ms-btn:hover { filter: brightness(1.06); }
+  .ms-load-btn { grid-column: 1 / -1; justify-self: start; }
+
+  /* ---------- List head + table ---------- */
+  .ms-list-head { display: flex; align-items: center; justify-content: space-between; margin: 32px 0 14px; }
+  .ms-btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ms-panel { background: #fff; border: 1px solid var(--parchment-2); border-radius: 14px; overflow-x: auto; }
+  .ms-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+  .ms-table thead th {
+    text-align: left; font-size: .7rem; letter-spacing: .1em; color: var(--brick);
+    font-weight: 700; padding: 16px 22px; border-bottom: 1px solid var(--parchment-2);
+    background: var(--parchment); white-space: nowrap;
+  }
+  .ms-table tbody td { padding: 14px 22px; font-size: .87rem; border-bottom: 1px solid var(--parchment-2); color: var(--ink); }
+  .ms-table tbody tr:last-child td { border-bottom: none; }
+  .ms-table .ms-select { padding: 8px 12px; min-width: 120px; }
+
+  .ms-footnote { text-align: center; font-size: .76rem; color: #9a9078; margin-top: 26px; }
+  @media (max-width: 760px) { .ms-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div class="ms-wrap">
+
+  <!-- Hero -->
+  <div class="ms-hero">
+    <div class="ms-hero-top">
+      <div>
+        <div class="ms-eyebrow">NOU DIGITAL CAMPUS</div>
+        <h1 class="ms-title">Attendance Register</h1>
+        <div class="ms-desc">
+          Select subject and date, load students, then mark Present or Absent.
+          Existing attendance can be corrected and saved again.
+        </div>
+      </div>
+      <div class="ms-chips">
+        <span class="ms-chip">ACADEMIC ERP</span>
+        <span class="ms-chip">SESSION 2026–2027</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Student List -->
+  <div class="ms-form-panel">
+    <h2 class="ms-form-title">Load Student List</h2>
+    <div class="ms-form-rule"></div>
+
+    <form method="get" action="{% url 't_mark_attendance' %}">
+      <div class="ms-grid">
+        <div class="ms-field">
+          <label class="ms-label" for="attCourse">Course</label>
+          <select class="ms-select" name="course" id="attCourse">
+            <option value="">--Select Course--</option>
+            {% for i in course_data %}
+            <option value="{{ i.course_name }}" {% if course == i.course_name %}selected{% endif %}>{{ i.course_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="ms-field">
+          <label class="ms-label" for="attDate">Date</label>
+          <input class="ms-input" type="text" id="attDate" name="date" placeholder="21-09-2026" />
+        </div>
+
+        <button type="submit" class="ms-btn ms-load-btn">Load Students</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Attendance list (sirf tab dikhega jab students load ho jayein) -->
+  {% if data %}
+  <form method="post" action="{% url 't_save_attendance' %}">
+    {% csrf_token %}
+    <input type="hidden" name="course" value="{{ course }}">
+
+    <div class="ms-list-head">
+      <div>
+        <h2 class="ms-form-title">Attendance</h2>
+        <div class="ms-form-rule" style="margin-bottom:0"></div>
+      </div>
+      <button type="submit" class="ms-btn">Save</button>
+    </div>
+
+    <div class="ms-btn-row">
+      <button type="button" class="ms-btn" onclick="markAll('Present')">All Present</button>
+      <button type="button" class="ms-btn" onclick="markAll('Absent')">All Absent</button>
+    </div>
+
+    <div class="ms-panel">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th style="width:50px">#</th>
+            <th>Enrollment No.</th>
+            <th>Name</th>
+            <th>Course</th>
+            <th>Mobile</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in data %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.enrollment_no }}</td>
+            <td>{{ i.student_name }}</td>
+            <td>{{ i.course }}</td>
+            <td>{{ i.mobile }}</td>
+            <td>
+              <select name="status_{{ i.enrollment_no }}" class="ms-select status-select">
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+              </select>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </form>
+  {% endif %}
+
+
+</div>
+
+<script>
+  function markAll(v) {
+    document.querySelectorAll('.status-select').forEach(function (s) { s.value = v; });
+  }
+</script>
+</main>
+{% endblock content %}

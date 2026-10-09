@@ -1,0 +1,367 @@
+
+{% extends "teacher/base.html" %} 
+
+{% block content %}
+<main class="content">
+  <!-- =========================================================
+     MAIN SECTION ONLY — Schedule Google Meet Class (forest-green theme)
+     ========================================================= -->
+<style>
+  :root {
+    --ink: #171a2e;
+    --brick: #2e4a34;
+    --brick-deep: #1d3323;
+    --parchment: #f3ecda;
+    --parchment-2: #e9dfc5;
+    --brass: #b8863b;
+    --brass-soft: #d8b876;
+    --ink-text: #2a2418;
+    --warn-bg: #fbf1dd;
+    --warn-txt: #8a6a1f;
+    --font-display: "Cinzel", serif;
+    --font-body: "Work Sans", sans-serif;
+  }
+  .ms-wrap {
+    font-family: var(--font-body);
+    color: var(--ink-text);
+  }
+  .ms-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    padding: 30px 34px;
+    background: linear-gradient(
+      155deg,
+      var(--brick) 0%,
+      var(--brick-deep) 100%
+    );
+    border: 1px solid var(--brick-deep);
+    color: var(--parchment);
+    margin-bottom: 24px;
+  }
+  .ms-hero::after {
+    content: "";
+    position: absolute;
+    right: -40px;
+    bottom: -40px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(216, 184, 118, 0.1);
+  }
+  .ms-hero-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .ms-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: var(--brass-soft);
+    margin-bottom: 10px;
+  }
+  .ms-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.8vw, 1.9rem);
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+  .ms-desc {
+    font-size: 0.9rem;
+    color: rgba(243, 236, 218, 0.8);
+    max-width: 620px;
+  }
+  .ms-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .ms-chip {
+    background: rgba(243, 236, 218, 0.1);
+    border: 1px solid rgba(216, 184, 118, 0.4);
+    color: var(--brass-soft);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 6px 15px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .ms-hero-badge {
+    position: relative;
+    z-index: 1;
+    margin-top: 20px;
+    display: inline-block;
+  }
+
+  .ms-form-panel {
+    background: #fff;
+    border: 1px solid var(--parchment-2);
+    border-radius: 14px;
+    padding: 28px 32px 32px;
+  }
+  .ms-form-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .ms-form-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin: 0;
+  }
+  .ms-warn-pill {
+    background: var(--warn-bg);
+    color: var(--warn-txt);
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .ms-form-rule {
+    width: 46px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--brick);
+    margin-bottom: 22px;
+  }
+
+  .ms-connect-btn {
+    display: inline-block;
+    margin-bottom: 26px;
+    background: linear-gradient(
+      135deg,
+      var(--brick) 0%,
+      var(--brick-deep) 100%
+    );
+    color: var(--parchment);
+    border: none;
+    padding: 12px 22px;
+    border-radius: 9px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .ms-connect-btn:hover {
+    filter: brightness(1.06);
+  }
+
+  .ms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 28px;
+  }
+  .ms-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ms-field.full {
+    grid-column: 1 / -1;
+  }
+  .ms-label {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .ms-input,
+  .ms-select,
+  .ms-textarea {
+    border: 1px solid var(--parchment-2);
+    border-radius: 9px;
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    color: var(--ink-text);
+    background: #fff;
+    width: 100%;
+  }
+  .ms-textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+  .ms-input:focus,
+  .ms-select:focus,
+  .ms-textarea:focus {
+    outline: none;
+    border-color: var(--brick);
+    box-shadow: 0 0 0 3px rgba(46, 74, 52, 0.12);
+  }
+  .ms-input::placeholder,
+  .ms-textarea::placeholder {
+    color: #a79e88;
+  }
+
+  .ms-btn-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .ms-submit {
+    background: linear-gradient(
+      135deg,
+      var(--brick) 0%,
+      var(--brick-deep) 100%
+    );
+    color: var(--parchment);
+    border: none;
+    padding: 13px 26px;
+    border-radius: 9px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .ms-submit:hover {
+    filter: brightness(1.06);
+  }
+  .ms-secondary-btn {
+    background: #fff;
+    color: var(--brick);
+    border: 1px solid var(--parchment-2);
+    padding: 13px 26px;
+    border-radius: 9px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .ms-secondary-btn:hover {
+    border-color: var(--brick);
+  }
+
+  .ms-footnote {
+    text-align: center;
+    font-size: 0.76rem;
+    color: #9a9078;
+    margin-top: 26px;
+  }
+  @media (max-width: 760px) {
+    .ms-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .btn-white{
+  background: var(--parchment);
+  border: 1.5px solid var(--parchment-2);
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  margin-top: 3px;
+}
+.btn-white:hover{ border-color: var(--brick); color: var(--brick); }
+</style>
+
+<div class="ms-wrap">
+  <div class="ms-hero">
+    <div class="ms-hero-top">
+      <div>
+        <div class="ms-eyebrow">NOU DIGITAL CAMPUS</div>
+        <h1 class="ms-title">Schedule Google Meet Online Class</h1>
+        <div class="ms-desc">
+          Class details bharo. Google Meet link automatically ban jayega aur
+          aap us class ke co-host honge.
+        </div>
+      </div>
+      <div class="ms-chips">
+        <span class="ms-chip">ACADEMIC ERP</span>
+        <span class="ms-chip">SESSION 2026–2027</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ms-form-panel">
+    <div class="ms-form-top">
+      <h2 class="ms-form-title">Google Meet Class Information</h2>
+    </div>
+    <div class="ms-form-rule"></div>
+
+    {% if not google_connected %}
+    <div class="ms-warn-pill" style="display:block;margin-bottom:16px;white-space:normal;">
+      Google Meet abhi connect nahi hai. Superadmin se "Connect Google Meet" karwaiye, uske baad hi class schedule ho payegi.
+    </div>
+    {% endif %}
+    <form method="post" action="{% url 'schedule_meeting' %}">
+      {% csrf_token %}
+      <div class="ms-grid">
+        <div class="ms-field">
+          <label class="ms-label">Class Title</label>
+          <input class="ms-input" type="text" name="class_title" maxlength="200"
+                 placeholder="e.g. Python Functions – Live Class" required />
+        </div>
+        <div class="ms-field">
+          <label class="ms-label">Course</label>
+          <select class="ms-select" name="course" required>
+            <option value="">Select course</option>
+            {% for c in courses %}
+            <option value="{{ c.course_name }}">{{ c.course_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="ms-field">
+          <label class="ms-label">Subject</label>
+          <select class="ms-select" name="subject" required>
+            <option value="">Select subject</option>
+            {% for s in subjects %}
+            <option value="{{ s.subject_name }}">{{ s.subject_name }} ({{ s.course }})</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="ms-field">
+          <label class="ms-label">Teacher</label>
+          <input class="ms-input" type="text" value="{{ request.user.Teacher.teacher_name }}" readonly />
+        </div>
+
+        <div class="ms-field">
+          <label class="ms-label">Class Date</label>
+          <input class="ms-input" type="date" name="class_date" required />
+        </div>
+        <div class="ms-field">
+          <label class="ms-label">Class Time</label>
+          <input class="ms-input" type="time" name="class_time" required />
+        </div>
+
+        <div class="ms-field">
+          <label class="ms-label">Duration (Minutes)</label>
+          <input class="ms-input" type="number" name="duration" value="60" min="1" required />
+        </div>
+        <div></div>
+
+        <div class="ms-field full">
+          <label class="ms-label">Agenda</label>
+          <textarea class="ms-textarea" name="agenda" placeholder="Topics to be covered..."></textarea>
+        </div>
+      </div>
+
+      <div class="ms-btn-row">
+        <button type="submit" class="ms-submit">Schedule Google Meet Class</button>
+        <a href="{% url 'google_login' %}"><button type="button" class="btn-white">Connect Google Meet</button></a>
+      </div>
+    </form>
+  </div>
+
+</div>
+</main>
+{% endblock content %}
+
+
+
+
+
+
+

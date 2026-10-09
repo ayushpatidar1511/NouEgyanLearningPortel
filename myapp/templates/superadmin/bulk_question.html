@@ -1,0 +1,166 @@
+{% extends "superadmin/base.html" %} {% block content %}
+<style>
+  .main-content {
+    margin-left: 278px;
+    padding: 2.2rem 2.4rem 3rem;
+  }
+
+  /* ---------------- Hero banner ---------------- */
+  .hero {
+    background:
+      repeating-linear-gradient(115deg, rgba(184, 134, 59, 0.06) 0 2px, transparent 2px 26px),
+      linear-gradient(150deg, var(--brick) 0%, var(--brick-deep) 100%);
+    color: var(--parchment);
+    padding: 2.2rem 2.4rem;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2.2rem;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; right: -40px; top: -40px;
+    width: 180px; height: 180px; border-radius: 50%;
+    background: rgba(243, 236, 218, 0.05);
+  }
+  .hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .hero-badges { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .hero-badge {
+    background: rgba(243, 236, 218, 0.1);
+    border: 1px solid rgba(184, 134, 59, 0.5);
+    color: var(--brass-soft);
+    font-size: 0.68rem; letter-spacing: 0.1em;
+    padding: 0.4rem 0.8rem; white-space: nowrap;
+  }
+  .hero .eyebrow { font-size: 0.72rem; letter-spacing: 0.16em; color: var(--brass-soft); margin-bottom: 0.6rem; }
+  .hero h1 { font-family: var(--font-display); font-weight: 700; font-size: 2.3rem; margin-bottom: 0.5rem; }
+  .hero .sub { font-size: 0.98rem; color: rgba(243, 236, 218, 0.85); max-width: 48ch; }
+
+  /* ---------------- Cards ---------------- */
+  .split-card {
+    background: var(--parchment);
+    border: 1px solid var(--parchment-2);
+    padding: 2rem 2.2rem 2.3rem;
+    height: 100%;
+  }
+  .split-card .head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .split-card h2 { font-family: var(--font-display); color: var(--ink); }
+  .title-rule { width: 44px; height: 3px; background: var(--brick); margin-bottom: 1.8rem; }
+  .count-pill {
+    background: rgba(122, 55, 40, 0.08); color: var(--brick);
+    border: 1px solid var(--parchment-2);
+    font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.8rem;
+  }
+
+  /* ---------------- Fields ---------------- */
+  .field-group { margin-bottom: 1.7rem; }
+  .field-label { font-size: 0.82rem; font-weight: 600; color: var(--ink); margin-bottom: 0.45rem; display: block; }
+  .split-card .form-control, .split-card .form-select {
+    width: 100%; border: 1px solid var(--parchment-2); background: #fffdf7;
+    color: var(--ink); padding: 0.65rem 0.8rem; border-radius: 0;
+  }
+  .split-card .form-control:focus, .split-card .form-select:focus {
+    outline: none; border-color: var(--brick); box-shadow: 0 0 0 3px rgba(122, 55, 40, 0.15);
+  }
+  .split-card textarea.form-control { min-height: 120px; resize: vertical; }
+
+  /* ---------------- Buttons ---------------- */
+  .btn-ghost {
+    background: transparent; border: 1.5px solid var(--brick); color: var(--brick);
+    font-size: 0.78rem; font-weight: 600; padding: 0.45rem 1rem;
+    white-space: nowrap; text-decoration: none; display: inline-block;
+    transition: all 0.2s ease;
+  }
+  .btn-ghost:hover { background: var(--brick); color: var(--parchment); }
+  .btn-brick {
+    background: var(--brick); color: var(--parchment);
+    font-family: var(--font-display); font-size: 0.95rem; letter-spacing: 0.03em;
+    padding: 0.8rem 2.2rem; border: none;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .btn-brick:hover { background: var(--brick-deep); color: var(--parchment); transform: translateY(-1px); }
+
+  /* ---------------- Info box ---------------- */
+  .info-box {
+    background: rgba(122, 55, 40, 0.05);
+    border: 1px solid var(--parchment-2);
+    border-left: 3px solid var(--brass);
+    padding: 1rem 1.2rem; font-size: 0.85rem; color: #5c5642;
+    line-height: 1.65; margin-top: 1.4rem;
+  }
+  .info-box b { color: var(--ink); }
+
+  /* ---------------- Question list ---------------- */
+  .q-item {
+    background: rgba(122, 55, 40, 0.04);
+    border: 1px solid var(--parchment-2);
+    border-left: 3px solid var(--brass);
+    padding: 1rem 1.2rem; margin-bottom: 1rem;
+  }
+  .q-item h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
+  .q-item .opt { font-size: 0.9rem; color: #5c5642; margin: 0.15rem 0; }
+  .q-item .meta { font-weight: 600; color: var(--brick); margin: 0.5rem 0 0.7rem; font-size: 0.9rem; }
+  .btn-edit, .btn-del {
+    font-size: 0.78rem; font-weight: 600; padding: 0.4rem 0.9rem;
+    border: 1.5px solid var(--brick); text-decoration: none; display: inline-block;
+    transition: all 0.2s ease;
+  }
+  .btn-edit { background: transparent; color: var(--brick); }
+  .btn-edit:hover { background: var(--brick); color: var(--parchment); }
+  .btn-del { background: var(--brick); color: var(--parchment); }
+  .btn-del:hover { background: var(--brick-deep); color: var(--parchment); }
+  .empty { color: #5c5642; font-size: 0.9rem; padding: 1rem 0; }
+
+  @media (max-width: 992px) { .main-content { margin-left: 0; padding: 1.2rem; } }
+</style>
+
+<div class="main-content">
+  <div class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow">NOU DIGITAL CAMPUS</div>
+        <h1>MCQ Question Bank</h1>
+        <div class="sub">
+          Upload many questions at once from a CSV file for the selected
+          online test.
+        </div>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge">ACADEMIC ERP</div>
+        <div class="hero-badge">SESSION 2026-2027</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12">
+    <div class="split-card">
+      <div class="head-row">
+        <div>
+          <h2>Bulk Question Upload - {{ test.name|default:"class" }}</h2>
+          <div class="title-rule"></div>
+        </div>
+        <a class="btn-ghost" href="?download_sample=1">Download Sample CSV</a>
+      </div>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="field-group">
+          <label class="field-label" for="csvFile">Select CSV File</label>
+          <input name="csv_file" accept=".csv" type="file" id="csvFile" required />
+        </div>
+
+        <button type="submit" name="bulk_upload" class="btn btn-brick">
+          Upload Questions in Bulk
+        </button>
+      </form>
+
+      <div class="info-box">
+        <b>Required CSV columns:</b><br />
+        question, option_a, option_b, option_c, option_d, correct_option,
+        marks<br /><br />
+        correct_option must be A, B, C or D; marks must be 1 or more.
+        Duplicate questions and invalid rows are skipped automatically.
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

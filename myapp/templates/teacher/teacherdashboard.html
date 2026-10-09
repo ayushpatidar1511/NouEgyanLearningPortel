@@ -1,0 +1,143 @@
+{% extends "teacher/base.html" %} 
+
+
+{% block content %}
+
+    <main class="content">
+      <!-- hero stats -->
+      <section class="hero-stats">
+        <div class="hero-card">
+          <div class="hero-label">My Courses</div>
+          <div class="hero-number">{{current_course}}</div>
+          <div class="hero-caption">▲ Assigned active courses</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-label">My Subjects</div>
+          <div class="hero-number">{{current_subject}}</div>
+          <div class="hero-caption">▲ Teaching responsibilities</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-label">Assignments</div>
+          <div class="hero-number">{{current_assignment}}</div>
+          <div class="hero-caption">▲ Created academic tasks</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-label">Online Classes</div>
+          <div class="hero-number">{{current_online_class}}</div>
+          <div class="hero-caption">▲ Upcoming Google Meet classes</div>
+        </div>
+      </section>
+
+      <!-- mini stats -->
+      <section class="mini-stats">
+        <div class="mini-card">
+          <div class="mini-top">
+            <div class="mini-badge">✓</div>
+            <span class="mini-tag">REVIEW</span>
+          </div>
+          <div class="mini-number">{{current_submission}}</div>
+          <div class="mini-caption">Submissions to Review</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-top">
+            <div class="mini-badge">S</div>
+            <span class="mini-tag">LEARNERS</span>
+          </div>
+          <div class="mini-number">{{current_course}}</div>
+          <div class="mini-caption">Students in My Courses</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-top">
+            <div class="mini-badge">M</div>
+            <span class="mini-tag">CONTENT</span>
+          </div>
+          <div class="mini-number">{{current_material}}</div>
+          <div class="mini-caption">Study Materials</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-top">
+            <div class="mini-badge">Q</div>
+            <span class="mini-tag">TESTS</span>
+          </div>
+          <div class="mini-number">{{current_test}}</div>
+          <div class="mini-caption">Online Tests</div>
+        </div>
+      </section>
+
+      <!-- quick actions -->
+      <section class="section-head">
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="section-sub">Teaching and assessment shortcuts</div>
+      </section>
+
+      <section class="quick-grid">
+        <a href="{% url 't_mark_attendance' %}">
+          <div class="quick-card">
+          <div class="quick-icon">✓</div>
+          <div>
+            <div class="quick-title">Mark Attendance</div>
+            <div class="quick-desc">
+              Record daily attendance for your class.
+            </div>
+          </div>
+          <div class="quick-arrow">→</div>
+        </div>
+        </a>
+        <a href="{% url 't_add_class' %}">
+          <div class="quick-card">
+          <div class="quick-icon">▶</div>
+          <div>
+            <div class="quick-title">Schedule Google Meet</div>
+            <div class="quick-desc">Create the next meeting automatically.</div>
+          </div>
+          <div class="quick-arrow">→</div>
+        </div>
+        </a>
+        <a href="{% url 't_add_task' %}">
+          <div class="quick-card">
+          <div class="quick-icon">A</div>
+          <div>
+            <div class="quick-title">Create Assignment</div>
+            <div class="quick-desc">Publish a task for your students.</div>
+          </div>
+          <div class="quick-arrow">→</div>
+        </div>
+        </a>
+        <a href="{% url 't_submission' %}">
+          <div class="quick-card">
+          <div class="quick-icon">R</div>
+          <div>
+            <div class="quick-title">Review Submissions</div>
+            <div class="quick-desc">Open and grade submitted work.</div>
+          </div>
+          <div class="quick-arrow">→</div>
+        </div>
+        </a>
+      </section>
+
+      <!-- bottom panels -->
+      <section class="panels">
+        <div class="panel">
+          <div class="panel-top">
+            <div>
+              <div class="panel-title">Upcoming Classes</div>
+              <div class="panel-sub">Your teaching schedule</div>
+            </div>
+            <span class="panel-tag">MY SCHEDULE</span>
+          </div>
+          <div class="panel-empty">No classes scheduled yet.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-top">
+            <div>
+              <div class="panel-title">Announcements</div>
+              <div class="panel-sub">Recent notices for faculty</div>
+            </div>
+            <span class="panel-tag">LATEST</span>
+          </div>
+          <div class="panel-empty">No announcements available.</div>
+        </div>
+      </section>
+    </main>
+
+{% endblock content %}

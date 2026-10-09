@@ -1,0 +1,439 @@
+{% extends "superadmin/base.html" %}
+
+{% block content %}
+
+    <style>
+      /* =========================================================
+   NALANDA THEME — shared stylesheet for all NOU e-Gyan pages
+   Isko ek baar apne project ke CSS folder me rakho aur har
+   page me <link> kar do. Har page me dobara style likhne ki
+   zaroorat nahi.
+   ========================================================= */
+      :root {
+        --ink: #171a2e;
+        --brick: #7a3728;
+        --brick-deep: #55251a;
+        --parchment: #f3ecda;
+        --parchment-2: #e9dfc5;
+        --brass: #b8863b;
+        --brass-soft: #d8b876;
+        --sage: #7c8a6e;
+        --ink-text: #2a2418;
+
+        --font-display: "Cinzel", serif;
+        --font-body: "Work Sans", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background: var(--parchment-2);
+        font-family: var(--font-body);
+        color: var(--ink-text);
+        /* NOTE: yahan padding NAHI hai — padding sirf .main-content wrapper degi */
+      }
+
+      /* Sidebar ke saath align karne wala wrapper (dashboard template me) */
+      .main-content {
+        margin-left: 278px;
+        padding: 2.2rem 2.4rem 3rem;
+      }
+
+      /* ---------------- Hero banner ---------------- */
+      .hero {
+        background:
+          repeating-linear-gradient(
+            115deg,
+            rgba(184, 134, 59, 0.06) 0 2px,
+            transparent 2px 26px
+          ),
+          linear-gradient(150deg, var(--brick) 0%, var(--brick-deep) 100%);
+        color: var(--parchment);
+        padding: 2.2rem 2.4rem;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 2.2rem;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        right: -40px;
+        top: -40px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(243, 236, 218, 0.05);
+      }
+      .hero-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .hero-badges {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+      .hero-badge {
+        background: rgba(243, 236, 218, 0.1);
+        border: 1px solid rgba(184, 134, 59, 0.5);
+        color: var(--brass-soft);
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        padding: 0.4rem 0.8rem;
+        white-space: nowrap;
+      }
+      .hero .eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        color: var(--brass-soft);
+        margin-bottom: 0.6rem;
+      }
+      .hero h1 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 2.3rem;
+        margin-bottom: 0.5rem;
+      }
+      .hero .sub {
+        font-size: 0.98rem;
+        color: rgba(243, 236, 218, 0.85);
+        max-width: 48ch;
+      }
+
+      /* ---------------- Form card ---------------- */
+      .form-card {
+        background: var(--parchment);
+        border: 1px solid var(--parchment-2);
+        padding: 2rem 2.2rem 2.3rem;
+      }
+      .form-card h2,
+      .list-head h2 {
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 0.25rem;
+      }
+      .title-rule {
+        width: 44px;
+        height: 3px;
+        background: var(--brick);
+        margin-bottom: 1.8rem;
+      }
+
+      .field-label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 0.45rem;
+        display: block;
+      }
+      .field-group {
+        margin-bottom: 1.7rem;
+      }
+      .field-group input,
+      .field-group select,
+      .field-group textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1.5px solid var(--parchment-2);
+        padding: 0.5rem 0.1rem;
+        font-family: var(--font-body);
+        font-size: 0.98rem;
+        color: var(--ink-text);
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+      .field-group textarea {
+        border: 1.5px solid var(--parchment-2);
+        padding: 0.7rem 0.8rem;
+        min-height: 120px;
+        resize: vertical;
+      }
+      .field-group input:focus,
+      .field-group select:focus,
+      .field-group textarea:focus {
+        border-color: var(--brick);
+        border-bottom-color: var(--brick);
+      }
+      .field-group input::placeholder,
+      .field-group textarea::placeholder {
+        color: #a89f86;
+      }
+
+      .date-wrap {
+        position: relative;
+      }
+      .date-wrap .cal-ic {
+        position: absolute;
+        right: 0.2rem;
+        top: 0.5rem;
+        color: var(--brass);
+        font-size: 0.95rem;
+        pointer-events: none;
+      }
+
+      /* ---------------- Buttons ---------------- */
+      .btn-brick {
+        background: var(--brick);
+        color: var(--parchment);
+        font-family: var(--font-display);
+        font-size: 0.95rem;
+        letter-spacing: 0.03em;
+        padding: 0.8rem 2.2rem;
+        border: none;
+        transition:
+          background 0.2s ease,
+          transform 0.15s ease;
+      }
+      .btn-brick:hover {
+        background: var(--brick-deep);
+        color: var(--parchment);
+        transform: translateY(-1px);
+      }
+
+      .btn-add {
+        background: var(--brick);
+        color: var(--parchment);
+        font-family: var(--font-display);
+        font-size: 0.82rem;
+        padding: 0.6rem 1.3rem;
+        border: none;
+        white-space: nowrap;
+        transition:
+          background 0.2s ease,
+          transform 0.15s ease;
+      }
+      .btn-add:hover {
+        background: var(--brick-deep);
+        color: var(--parchment);
+        transform: translateY(-1px);
+      }
+
+      /* ---------------- List head + table ---------------- */
+      .list-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.1rem;
+      }
+      .list-head .title-rule {
+        margin-bottom: 0;
+      }
+
+      .table-card {
+        background: var(--parchment);
+        border: 1px solid var(--parchment-2);
+        overflow-x: auto;
+      }
+      .table-card table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 720px;
+      }
+      .table-card thead th {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        color: var(--brass);
+        text-align: left;
+        padding: 1rem 1.4rem;
+        border-bottom: 1.5px solid var(--parchment-2);
+        background: rgba(122, 55, 40, 0.04);
+        white-space: nowrap;
+      }
+      .table-card tbody td {
+        padding: 1.05rem 1.4rem;
+        font-size: 0.92rem;
+        color: var(--ink-text);
+        border-bottom: 1px solid var(--parchment-2);
+      }
+      .table-card tbody tr:last-child td {
+        border-bottom: none;
+      }
+      .table-card tbody tr:hover {
+        background: rgba(122, 55, 40, 0.03);
+      }
+
+      .status-pill {
+        display: inline-block;
+        background: rgba(124, 138, 110, 0.15);
+        color: var(--sage);
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 0.25rem 0.7rem;
+      }
+      .act-link {
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        margin-right: 1rem;
+      }
+      .act-edit {
+        color: var(--brass);
+      }
+      .act-delete {
+        color: var(--brick);
+      }
+
+      .empty-note {
+        text-align: center;
+        color: #8a8168;
+        font-size: 0.9rem;
+        padding: 3rem 0;
+      }
+
+      @media (max-width: 991px) {
+        .main-content {
+          margin-left: 0;
+          padding: 1.6rem 1.2rem 2.4rem;
+        }
+        .hero {
+          padding: 1.8rem 1.6rem;
+        }
+        .hero h1 {
+          font-size: 1.7rem;
+        }
+      }
+
+      /* ---------------- Info / note box ---------------- */
+      .info-box {
+        background: rgba(122, 55, 40, 0.05);
+        border: 1px solid var(--parchment-2);
+        border-left: 3px solid var(--brass);
+        padding: 1rem 1.2rem;
+        font-size: 0.85rem;
+        color: #5c5642;
+        line-height: 1.65;
+        margin-top: 1.4rem;
+      }
+      .info-box b {
+        color: var(--ink);
+      }
+
+      /* File input ko theme ke hisaab se */
+      .field-group input[type="file"] {
+        border: 1.5px solid var(--parchment-2);
+        padding: 0.6rem 0.8rem;
+        font-size: 0.88rem;
+      }
+
+      /* Do-column split card layout (Add Student page) */
+      .split-card {
+        background: var(--parchment);
+        border: 1px solid var(--parchment-2);
+        padding: 2rem 2.2rem 2.3rem;
+        height: 100%;
+      }
+      .split-card .head-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .btn-ghost {
+        background: transparent;
+        border: 1.5px solid var(--brick);
+        color: var(--brick);
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 0.45rem 1rem;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+      }
+      .btn-ghost:hover {
+        background: var(--brick);
+        color: var(--parchment);
+      }
+    </style>
+    <div class="main-content">
+      <div class="hero">
+        <div class="hero-top">
+          <div>
+            <div class="eyebrow">NOU DIGITAL CAMPUS</div>
+            <h1>Create Online Test</h1>
+            <div class="sub">
+              Create an MCQ test, then add questions using the question bank.
+            </div>
+          </div>
+          <div class="hero-badges">
+            <div class="hero-badge">ACADEMIC ERP</div>
+            <div class="hero-badge">SESSION 2026-29</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h2>Test Information</h2>
+        <div class="title-rule"></div>
+
+        <form method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6 field-group">
+              <label class="field-label" for="testTitle">Test Title</label>
+              <input name="test_title" type="text" id="testTitle" placeholder="Unit Test 1" />
+            </div>
+            <div class="col-md-6 field-group">
+              <label class="field-label" for="testDate">Test Date</label>
+              <input name="test_date" type="date" id="testDate" placeholder="dd-mm-yyyy" />
+            </div>
+            <div class="col-md-6 field-group">
+              <label class="field-label" for="testCourse">Course</label>
+              <select name="course" id="testCourse">
+                <option value="">--select course--</option>
+                {% for i in course_data %}
+                <option>{{i.course_name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6 field-group">
+              <label class="field-label" for="testSubject">Subject</label>
+              <select name="subject" id="testSubject">
+                <option value="">--select subject--</option>
+                {% for i in subject_data %}
+                <option>{{i.subject_name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6 field-group">
+              <label class="field-label" for="startTime">Start Time</label>
+              <input name="start_time" type="time" id="startTime" placeholder="" />
+            </div>
+            <div class="col-md-6 field-group">
+              <label class="field-label" for="duration"
+                >Duration (Minutes)</label
+              >
+              <input name="duration" type="number" id="duration" placeholder="30" />
+            </div>
+            <div class="col-md-6 field-group">
+              <label class="field-label" for="testMarks">Total Marks</label>
+              <input name="total_marks" type="number" id="testMarks" placeholder="20" />
+            </div>
+            <div class="col-md-6 field-group">
+              <label class="field-label" for="testStatus">Status</label>
+              <select name="status" id="testStatus">
+                <option value="">--select status--</option>
+                <option>Published</option>
+                <option>Draft</option>
+              </select>
+            </div>
+            <!-- <div class="col-12 field-group">
+              <label class="field-label" for="testInst">Instructions</label>
+              <textarea
+                id="testInst"
+                placeholder="Test ke rules aur instructions..."
+              ></textarea>
+            </div> -->
+          </div>
+
+          <button type="submit" class="btn btn-brick">Create Test</button>
+        </form>
+      </div>
+    </div>
+{% endblock content %}

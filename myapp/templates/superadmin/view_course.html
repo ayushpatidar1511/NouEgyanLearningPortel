@@ -1,0 +1,322 @@
+{% extends "superadmin/base.html" %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   NALANDA THEME — shared stylesheet for all NOU e-Gyan pages
+   Isko ek baar apne project ke CSS folder me rakho aur har
+   page me <link> kar do. Har page me dobara style likhne ki
+   zaroorat nahi.
+   ========================================================= */
+:root{
+  --ink:        #171A2E;
+  --brick:      #7A3728;
+  --brick-deep: #55251A;
+  --parchment:  #F3ECDA;
+  --parchment-2:#E9DFC5;
+  --brass:      #B8863B;
+  --brass-soft: #D8B876;
+  --sage:       #7C8A6E;
+  --ink-text:   #2A2418;
+ 
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Work Sans', sans-serif;
+}
+ 
+*{ box-sizing: border-box; }
+body{
+  background: var(--parchment-2);
+  font-family: var(--font-body);
+  color: var(--ink-text);
+  /* NOTE: yahan padding NAHI hai — padding sirf .main-content wrapper degi */
+}
+ 
+/* Sidebar ke saath align karne wala wrapper (dashboard template me) */
+.main-content{
+  margin-left: 278px;
+  padding: 2.2rem 2.4rem 3rem;
+}
+ 
+/* ---------------- Hero banner ---------------- */
+.hero{
+  background:
+    repeating-linear-gradient(115deg, rgba(184,134,59,0.06) 0 2px, transparent 2px 26px),
+    linear-gradient(150deg, var(--brick) 0%, var(--brick-deep) 100%);
+  color: var(--parchment);
+  padding: 2.2rem 2.4rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2.2rem;
+}
+.hero::after{
+  content:"";
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(243,236,218,0.05);
+}
+.hero-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.hero-badges{ display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.hero-badge{
+  background: rgba(243,236,218,0.1);
+  border: 1px solid rgba(184,134,59,0.5);
+  color: var(--brass-soft);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0.8rem;
+  white-space: nowrap;
+}
+.hero .eyebrow{
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--brass-soft);
+  margin-bottom: 0.6rem;
+}
+.hero h1{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.3rem;
+  margin-bottom: 0.5rem;
+}
+.hero .sub{
+  font-size: 0.98rem;
+  color: rgba(243,236,218,0.85);
+  max-width: 48ch;
+}
+ 
+/* ---------------- Form card ---------------- */
+.form-card{
+  background: var(--parchment);
+  border: 1px solid var(--parchment-2);
+  padding: 2rem 2.2rem 2.3rem;
+}
+.form-card h2,
+.list-head h2{
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+.title-rule{
+  width: 44px;
+  height: 3px;
+  background: var(--brick);
+  margin-bottom: 1.8rem;
+}
+ 
+.field-label{
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.45rem;
+  display: block;
+}
+.field-group{ margin-bottom: 1.7rem; }
+.field-group input,
+.field-group select,
+.field-group textarea{
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--parchment-2);
+  padding: 0.5rem 0.1rem;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  color: var(--ink-text);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.field-group textarea{
+  border: 1.5px solid var(--parchment-2);
+  padding: 0.7rem 0.8rem;
+  min-height: 120px;
+  resize: vertical;
+}
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus{ border-color: var(--brick); border-bottom-color: var(--brick); }
+.field-group input::placeholder,
+.field-group textarea::placeholder{ color: #a89f86; }
+ 
+.date-wrap{ position: relative; }
+.date-wrap .cal-ic{
+  position: absolute;
+  right: 0.2rem; top: 0.5rem;
+  color: var(--brass);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+ 
+/* ---------------- Buttons ---------------- */
+.btn-brick{
+  background: var(--brick);
+  color: var(--parchment);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  padding: 0.8rem 2.2rem;
+  border: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.btn-brick:hover{ background: var(--brick-deep); color: var(--parchment); transform: translateY(-1px); }
+ 
+.btn-add{
+  background: var(--brick);
+  color: var(--parchment);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  padding: 0.6rem 1.3rem;
+  border: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.btn-add:hover{ background: var(--brick-deep); color: var(--parchment); transform: translateY(-1px); }
+ 
+/* ---------------- List head + table ---------------- */
+.list-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.1rem;
+}
+.list-head .title-rule{ margin-bottom: 0; }
+ 
+.table-card{
+  background: var(--parchment);
+  border: 1px solid var(--parchment-2);
+  overflow-x: auto;
+}
+.table-card table{ width: 100%; border-collapse: collapse; min-width: 720px; }
+.table-card thead th{
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--brass);
+  text-align: left;
+  padding: 1rem 1.4rem;
+  border-bottom: 1.5px solid var(--parchment-2);
+  background: rgba(122,55,40,0.04);
+  white-space: nowrap;
+}
+.table-card tbody td{
+  padding: 1.05rem 1.4rem;
+  font-size: 0.92rem;
+  color: var(--ink-text);
+  border-bottom: 1px solid var(--parchment-2);
+}
+.table-card tbody tr:last-child td{ border-bottom: none; }
+.table-card tbody tr:hover{ background: rgba(122,55,40,0.03); }
+ 
+.status-pill{
+  display: inline-block;
+  background: rgba(124,138,110,0.15);
+  color: var(--sage);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+}
+.act-link{
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+.act-edit:hover{
+  background-color:var(--brass);
+  color: white;
+}
+.act-delete:hover{
+  background-color:var(--brick);
+  color: white;
+}
+.act-edit{ color: var(--brass);border: 1px solid var(--brass); padding: 8px; border-radius: 5px; }
+.act-delete{ color: var(--brick);border: 1px solid var(--brick); padding: 8px; border-radius: 5px; }
+ 
+.empty-note{
+  text-align: center;
+  color: #8a8168;
+  font-size: 0.9rem;
+  padding: 3rem 0;
+}
+ 
+@media (max-width: 991px){
+  .main-content{ margin-left: 0; padding: 1.6rem 1.2rem 2.4rem; }
+  .hero{ padding: 1.8rem 1.6rem; }
+  .hero h1{ font-size: 1.7rem; }
+}
+ 
+</style>
+ 
+<div class="main-content">
+ 
+  <div class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow">NOU DIGITAL CAMPUS</div>
+        <h1>Course Directory</h1>
+        <div class="sub">View academic programmes available in NOU e-Gyan.</div>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge">ACADEMIC ERP</div>
+        <div class="hero-badge">SESSION 2026-27</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="list-head">
+    <div>
+      <h2>Courses</h2>
+      <div class="title-rule"></div>
+    </div>
+    <button class="btn-add">+ Add Course</button>
+  </div>
+ 
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Code</th>
+          <th>Course</th>
+          <th>Session</th>
+          <th>Level</th>
+          <th>Duration</th>
+          <th>Status</th>
+          <th>Action</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in ab %}
+        <tr>
+          <td>{{i.id}}</td>
+          <td>{{i.course_code}}</td>
+          <td>{{i.course_name}}</td>
+          <td>{{i.academic_session}}</td>
+          <td>{{i.level}}</td>
+          <td>{{i.duration}}</td>
+          <td><span class="status-pill">{{i.status}}</span></td>
+          <td>
+            <span class="d-flex">
+              <a href="{% url "edit_course" i.id %}" class="act-link act-edit">Edit</a>
+            <a href="{% url "delete_course" i.id %}" class="act-link act-delete">Delete</a>
+            </span>
+          </td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+ 
+</div>
+ 
+{% endblock content %}

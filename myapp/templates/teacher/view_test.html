@@ -1,0 +1,337 @@
+{% extends "teacher/base.html" %} {% block content %}
+
+<main class="content">
+<!-- =========================================================
+     MAIN SECTION ONLY — View Online Tests (forest-green theme)
+     ========================================================= -->
+<style>
+  :root {
+    --ink: #171a2e;
+    --brick: #2e4a34;
+    --brick-deep: #1d3323;
+    --parchment: #f3ecda;
+    --parchment-2: #e9dfc5;
+    --brass: #b8863b;
+    --brass-soft: #d8b876;
+    --ink-text: #2a2418;
+    --font-display: "Cinzel", serif;
+    --font-body: "Work Sans", sans-serif;
+  }
+  .ms-wrap {
+    font-family: var(--font-body);
+    color: var(--ink-text);
+  }
+  .ms-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    padding: 30px 34px;
+    background: linear-gradient(
+      155deg,
+      var(--brick) 0%,
+      var(--brick-deep) 100%
+    );
+    border: 1px solid var(--brick-deep);
+    color: var(--parchment);
+    margin-bottom: 24px;
+  }
+  .ms-hero::after {
+    content: "";
+    position: absolute;
+    right: -40px;
+    bottom: -40px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(216, 184, 118, 0.1);
+  }
+  .ms-hero-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .ms-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: var(--brass-soft);
+    margin-bottom: 10px;
+  }
+  .ms-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.8vw, 1.9rem);
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+  .ms-desc {
+    font-size: 0.9rem;
+    color: rgba(243, 236, 218, 0.8);
+    max-width: 520px;
+  }
+  .ms-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .ms-chip {
+    background: rgba(243, 236, 218, 0.1);
+    border: 1px solid rgba(216, 184, 118, 0.4);
+    color: var(--brass-soft);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 6px 15px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .ms-hero-badge {
+    position: relative;
+    z-index: 1;
+    margin-top: 20px;
+    display: inline-block;
+  }
+
+  .ms-section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .ms-section-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin: 0 0 8px;
+  }
+  .ms-section-rule {
+    width: 46px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--brick);
+  }
+  .ms-add-btn {
+    background: linear-gradient(
+      135deg,
+      var(--brick) 0%,
+      var(--brick-deep) 100%
+    );
+    color: var(--parchment);
+    border: none;
+    padding: 11px 20px;
+    border-radius: 9px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .ms-add-btn:hover {
+    filter: brightness(1.06);
+  }
+
+  .ms-panel {
+    background: #fff;
+    border: 1px solid var(--parchment-2);
+    border-radius: 14px;
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+  .ms-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x:auto;
+    overflow-y: auto;
+  }
+  .ms-table thead th {
+    text-align: left;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--brick);
+    font-weight: 700;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--parchment-2);
+    background: var(--parchment);
+    white-space: nowrap;
+  }
+  .ms-table tbody td {
+    padding: 16px 22px;
+    font-size: 0.87rem;
+    border-bottom: 1px solid var(--parchment-2);
+    color: var(--ink);
+  }
+  .ms-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .ms-table tbody tr:hover {
+    background: #fbf8f1;
+  }
+  .ms-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    background: rgba(46, 74, 52, 0.1);
+    color: var(--brick);
+  }
+  .ms-status .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .ms-link-action {
+    color: var(--brick);
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
+  .ms-empty {
+    padding: 56px 24px;
+    text-align: center;
+    color: #8a8067;
+    font-size: 0.88rem;
+  }
+  .ms-footnote {
+    text-align: center;
+    font-size: 0.76rem;
+    color: #9a9078;
+    margin-top: 26px;
+  }
+  .act-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 1rem;
+  }
+  .act-edit:hover {
+    background-color: var(--brass);
+    color: white;
+  }
+  .act-delete:hover {
+    background-color: red;
+    color: white;
+  }
+  .act-edit {
+    color: var(--brass);
+    border: 1px solid var(--brass);
+    padding: 8px;
+    border-radius: 5px;
+  }
+  .act-delete {
+    color:red;
+    border: 1px solid red;
+    padding: 8px;
+    border-radius: 5px;
+  }
+ 
+  .gact-edit {
+    color: var(--brick);
+    border: 1px solid var(--brick);
+    padding: 8px;
+    border-radius: 5px;
+  }
+  .gact-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 1rem;
+  }
+  .gact-edit:hover {
+    background-color: var(--brick);
+    color: white;
+  }
+</style>
+
+<div class="ms-wrap">
+  <div class="ms-hero">
+    <div class="ms-hero-top">
+      <div>
+        <div class="ms-eyebrow">NOU DIGITAL CAMPUS</div>
+        <h1 class="ms-title">My Online Tests</h1>
+        <div class="ms-desc">Manage tests and add MCQ questions.</div>
+      </div>
+      <div class="ms-chips">
+        <span class="ms-chip">ACADEMIC ERP</span>
+        <span class="ms-chip">SESSION 2026–2027</span>
+      </div>
+    </div>
+    <div class="ms-hero-badge">
+      <span class="ms-chip">SESSION 2026–2027</span>
+    </div>
+  </div>
+
+  <div class="ms-section-head">
+    <div>
+      <h2 class="ms-section-title">Tests</h2>
+      <div class="ms-section-rule"></div>
+    </div>
+    <button class="ms-add-btn">+ Add Test</button>
+  </div>
+
+  <div class="ms-panel">
+    <table class="ms-table">
+      <thead>
+        <tr>
+          <th style="width: 50px">#</th>
+          <th>TEST</th>
+          <th>COURSE</th>
+          <th>SUBJECT</th>
+          <th>DATE</th>
+          <th>DURATION</th>
+          <th>MARKS</th>
+          <th>STATUS</th>
+          <th>ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ab in ab %}
+        <tr>
+          <td>{{ ab.id }}</td>
+          <td>{{ ab.test_title }}</td>
+          <td>{{ ab.course }}</td>
+          <td>{{ ab.subject }}</td>
+          <td>{{ ab.test_date }}</td>
+          <td>{{ ab.duration }} min</td>
+          <td>{{ ab.total_marks }}</td>
+          <td><span class="ms-status"><span class="dot"></span>{{ ab.status }}</span></td>
+          <td>
+             <span class="d-flex">
+              <a href="{% url "t_question_bank" ab.id %}" class="gact-link gact-edit"
+                >Single Questions</a
+              >
+              <a href="{% url "t_bulkquestion_bank" ab.id %}" class="gact-link gact-edit"
+                >Bulk Questions</a
+              >
+              <a href="{% url "t_edit_test" ab.id %}" class="act-link act-edit"
+                >Edit</a
+              >
+              <a
+                href="{% url "t_delete_test" ab.id %}"
+                class="act-link act-delete"
+                >Delete</a
+              >
+            </span>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="8" class="ms-empty">No tests found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+</main>
+{% endblock content %}

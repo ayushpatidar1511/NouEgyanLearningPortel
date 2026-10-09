@@ -1,0 +1,18 @@
+{% comment %} NAVBAR {% endcomment %}
+
+<div class="topbar" style="margin-left: var(--sidebar-w); padding-top: 15px; padding-left: 25px; padding-right: 30px; padding-bottom: 12px;">
+        <div>
+          <h1> {{ page_title|default:"Super Admin Dashboard" }} </h1>
+          <div class="sub">NOU e-Gyan · Super Admin Workspace</div>
+        </div>
+        <div class="who-row">
+          <div class="who-chip">
+            <div class="avatar">SU</div>
+            <div>
+              <div class="name">SuperAdmin</div>
+              <div class="role">Super Admin</div>
+            </div>
+          </div>
+          <a href="{% url "logout" %}"><button class="btn-logout">Logout</button></a>
+        </div>
+</div>

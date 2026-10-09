@@ -1,0 +1,222 @@
+{% extends "superadmin/base.html" %}
+
+{% block content %}
+<style>
+/* Same Nalanda theme tokens as the login page / dashboard */
+:root{
+  --ink:        #171A2E;
+  --brick:      #7A3728;
+  --brick-deep: #55251A;
+  --parchment:  #F3ECDA;
+  --parchment-2:#E9DFC5;
+  --brass:      #B8863B;
+  --brass-soft: #D8B876;
+  --sage:       #7C8A6E;
+  --ink-text:   #2A2418;
+
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Work Sans', sans-serif;
+}
+
+*{ box-sizing: border-box; }
+body{
+  background: var(--parchment-2);
+  font-family: var(--font-body);
+  color: var(--ink-text);
+  {% comment %} padding: 2.2rem 2.4rem 3rem; {% endcomment %}
+}
+
+/* ---------------- Hero banner ---------------- */
+.hero{
+  background:
+    repeating-linear-gradient(115deg, rgba(184,134,59,0.06) 0 2px, transparent 2px 26px),
+    linear-gradient(150deg, var(--brick) 0%, var(--brick-deep) 100%);
+  color: var(--parchment);
+  padding: 2.2rem 2.4rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2.2rem;
+}
+.hero::after{
+  content:"";
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(243,236,218,0.05);
+}
+.hero-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.hero-badges{
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.hero-badge{
+  background: rgba(243,236,218,0.1);
+  border: 1px solid rgba(184,134,59,0.5);
+  color: var(--brass-soft);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0.8rem;
+  white-space: nowrap;
+}
+.hero .eyebrow{
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--brass-soft);
+  margin-bottom: 0.6rem;
+}
+.hero h1{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.3rem;
+  margin-bottom: 0.5rem;
+}
+.hero .sub{
+  font-size: 0.98rem;
+  color: rgba(243,236,218,0.85);
+  max-width: 46ch;
+}
+
+/* ---------------- Form card ---------------- */
+.form-card{
+  background: var(--parchment);
+  border: 1px solid var(--parchment-2);
+  padding: 2rem 2.2rem 2.3rem;
+}
+.form-card h2{
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+.title-rule{
+  width: 44px;
+  height: 3px;
+  background: var(--brick);
+  margin-bottom: 1.8rem;
+}
+
+.field-label{
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.45rem;
+  display: block;
+}
+.field-group{ margin-bottom: 1.7rem; }
+.field-group input,
+.field-group select{
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--parchment-2);
+  padding: 0.5rem 0.1rem;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  color: var(--ink-text);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.field-group input:focus,
+.field-group select:focus{ border-bottom-color: var(--brick); }
+.field-group input::placeholder{ color: #a89f86; }
+
+.date-wrap{ position: relative; }
+.date-wrap .cal-ic{
+  position: absolute;
+  right: 0.2rem; top: 0.5rem;
+  color: var(--brass);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.btn-brick{
+  background: var(--brick);
+  color: var(--parchment);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  padding: 0.8rem 2.2rem;
+  border: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.btn-brick:hover{ background: var(--brick-deep); color: var(--parchment); transform: translateY(-1px); }
+
+@media (max-width: 767px){
+  body{ padding: 1.6rem 1.2rem 2.4rem; }
+  .hero{ padding: 1.8rem 1.6rem; }
+  .hero h1{ font-size: 1.7rem; }
+}
+</style>
+
+<main class="main">
+
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="eyebrow">NOU DIGITAL CAMPUS</div>
+      <h1>Create Academic Session</h1>
+      <div class="sub">Add a new university academic session using a simple form.</div>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge">ACADEMIC ERP</div>
+      <div class="hero-badge">SESSION 2026-27</div>
+    </div>
+  </div>
+</div>
+
+<div class="form-card">
+  <h2>Session Information</h2>
+  <div class="title-rule"></div>
+
+  {% for mess in messages %}
+  <div class="alert alert-success">{{mess}}</div>
+  {% endfor %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6 field-group">
+        <label class="field-label" for="sessionName">Session Name</label>
+        <input value="{{s.session_name}}" type="text" id="sessionName" name="session_name" placeholder="e.g. 2026-27">
+      </div>
+      <div class="col-md-6 field-group">
+        <label class="field-label" for="status">Status</label>
+        <select value="{{s.status}}" id="status" name="status">
+          <option value="">--Select Status--</option>
+          <option value="Active" {% if s.status == "Active" %}selected{% endif %}>Active</option>
+          <option value="Upcoming" {% if s.status == "Upcoming" %}selected{% endif %}>Upcoming</option>
+          <option value="Closed" {% if s.status == "Closed" %}selected{% endif %}>Closed</option>
+        </select>
+      </div>
+
+      <div class="col-md-6 field-group">
+        <label class="field-label" for="startDate">Start Date</label>
+        <div class="date-wrap">
+          <input value="{{s.start_date | date:'Y-m-d'}}" type="date" id="startDate" name="start_date" placeholder="dd-mm-yyyy">
+          <span class="cal-ic">&#128197;</span>
+        </div>
+      </div>
+      <div class="col-md-6 field-group">
+        <label class="field-label" for="endDate">End Date</label>
+        <div class="date-wrap">
+          <input value="{{s.end_date | date:'Y-m-d'}}" type="date" id="endDate" name="end_date" placeholder="dd-mm-yyyy">
+          <span class="cal-ic">&#128197;</span>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-brick mt-2">Save Session</button>
+  </form>
+</div>
+
+</main>
+{% endblock content %}

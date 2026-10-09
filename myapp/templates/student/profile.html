@@ -1,0 +1,204 @@
+{% extends "student/base.html" %}
+
+{% block content %}
+<style>
+/* =========================================================
+   NALANDA THEME — STUDENT VARIANT (premium plum & champagne)
+   Shared partial for main-content-only student pages.
+   ========================================================= */
+:root{
+  --ink:        #171A2E;
+  --brick:      #4A1E3D;
+  --brick-deep: #2A1026;
+  --parchment:  #F6EFE2;
+  --parchment-2:#EBE0CC;
+  --brass:      #C9A227;
+  --brass-soft: #E3C777;
+  --sage:       #A9829A;
+  --ink-text:   #2A2418;
+ 
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Work Sans', sans-serif;
+}
+ 
+*{ box-sizing: border-box; }
+body{
+  margin:0;
+  font-family: var(--font-body);
+  background: var(--parchment);
+  color: var(--ink-text);
+}
+ 
+.content-wrap{ padding: clamp(20px, 3vw, 44px); }
+ 
+/* ---------- page hero banner ---------- */
+.page-hero{
+  background: linear-gradient(150deg, var(--brick) 0%, var(--brick-deep) 100%);
+  color: var(--parchment);
+  border-radius: 16px;
+  padding: 30px clamp(22px, 3vw, 40px);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 22px;
+  border: 1px solid var(--brick-deep);
+}
+.page-hero::after{
+  content:"";
+  position:absolute; right:-40px; top:-40px;
+  width:180px; height:180px; border-radius:50%;
+  background: rgba(227,199,119,0.08);
+}
+.hero-top{
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap: 16px; flex-wrap: wrap; position:relative; z-index:1;
+}
+.hero-eyebrow{ font-size:0.74rem; letter-spacing:0.16em; color: var(--brass-soft); margin-bottom:10px; font-weight:600; }
+.page-hero h1{ font-family: var(--font-display); font-weight:700; font-size: clamp(1.5rem, 2.6vw, 2.05rem); margin: 0 0 8px; }
+.page-hero .sub{ font-size:0.95rem; color: rgba(246,239,226,0.85); max-width: 52ch; }
+.hero-badges{ display:flex; gap:8px; flex-wrap:wrap; }
+.hero-badge{
+  background: rgba(246,239,226,0.1); border:1px solid rgba(227,199,119,0.5);
+  color: var(--brass-soft); font-size:0.68rem; letter-spacing:0.08em;
+  padding: 7px 14px; border-radius:999px; white-space:nowrap; font-weight:600;
+}
+ 
+/* ---------- stat cards row ---------- */
+.stat-row{ display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; margin-bottom:22px; }
+.stat-box{
+  background:#fff; border:1px solid var(--parchment-2); border-radius:16px;
+  padding: 22px 22px 20px; position:relative; overflow:hidden;
+}
+.stat-box::after{
+  content:""; position:absolute; right:-24px; bottom:-24px; width:90px; height:90px;
+  border-radius:50%; background: rgba(74,30,61,0.05);
+}
+.stat-num{ font-family: var(--font-display); font-size:2rem; font-weight:700; color: var(--ink); margin-bottom:6px; }
+.stat-label{ font-size:0.88rem; color:#6B6250; }
+ 
+/* ---------- info card ---------- */
+.info-card{
+  background:#fff; border:1px solid var(--parchment-2); border-radius:16px;
+  padding: 26px 28px 30px;
+}
+.info-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; flex-wrap:wrap; gap:10px; }
+.info-title{ font-family: var(--font-display); font-size:1.35rem; font-weight:700; color: var(--ink); }
+.status-pill{
+  background: rgba(169,130,154,0.15); color: var(--brick);
+  font-size:0.72rem; font-weight:700; letter-spacing:0.03em;
+  padding:6px 16px; border-radius:999px; white-space:nowrap;
+}
+.count-pill{
+  background: rgba(201,162,39,0.15); color: var(--brick);
+  font-size:0.78rem; font-weight:700;
+  width: 34px; height:34px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+}
+.title-rule{ width:44px; height:3px; background: var(--brick); border-radius:3px; margin: 10px 0 22px; }
+ 
+.form-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 20px 24px; }
+.field-group{ display:flex; flex-direction:column; gap:8px; }
+.field-group.full{ grid-column: 1 / -1; }
+.field-label{ font-size:0.86rem; font-weight:600; color: var(--ink); }
+.field-group input{
+  background: var(--parchment); border:1px solid var(--parchment-2); border-radius:10px;
+  padding: 12px 14px; font-family: var(--font-body); font-size:0.95rem; color: var(--ink-text);
+  outline:none; transition: border-color .15s ease;
+}
+.field-group input:focus{ border-color: var(--brick); }
+.field-group input::placeholder{ color:#A89F86; }
+ 
+.btn-plum{
+  background: var(--brick); color: var(--parchment); border:none; border-radius:10px;
+  font-family: var(--font-display); font-size:0.95rem; letter-spacing:0.03em;
+  padding: 13px 30px; cursor:pointer; transition: background .2s ease, transform .15s ease;
+  margin-top: 6px;
+}
+.btn-plum:hover{ background: var(--brick-deep); transform: translateY(-1px); }
+ 
+/* ---------- table card ---------- */
+.table-card{
+  background:#fff; border:1px solid var(--parchment-2); border-radius:16px; overflow-x:auto;
+}
+.table-card table{ width:100%; border-collapse:collapse; min-width:680px; }
+.table-card thead th{
+  font-size:0.72rem; letter-spacing:0.1em; color: var(--brass);
+  text-align:left; padding: 16px 22px; border-bottom:1.5px solid var(--parchment-2);
+  background: rgba(74,30,61,0.04); white-space:nowrap;
+}
+.table-card tbody td{
+  padding: 16px 22px; font-size:0.92rem; color: var(--ink-text);
+  border-bottom:1px solid var(--parchment-2);
+}
+.table-card tbody tr:last-child td{ border-bottom:none; }
+.table-card tbody tr:hover{ background: rgba(74,30,61,0.03); }
+ 
+.empty-note{ text-align:center; color:#8A8067; font-size:0.9rem; padding: 46px 0; }
+ 
+@media (max-width: 860px){
+  .stat-row{ grid-template-columns: repeat(2, 1fr); }
+  .form-grid{ grid-template-columns: 1fr; }
+}
+ 
+</style>
+ 
+<div class="content-wrap">
+ 
+  <div class="page-hero">
+    <div class="hero-top">
+      <div>
+        <div class="hero-eyebrow">NOU DIGITAL CAMPUS</div>
+        <h1>My Profile</h1>
+        <div class="sub">View your academic details and update basic contact information.</div>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge">ACADEMIC ERP</div>
+        <div class="hero-badge">SESSION 2026-2027</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="info-card">
+    <div class="info-head">
+      <div class="info-title">Ayush Patidar</div>
+      <div class="count-pill">06</div>
+    </div>
+    <div class="title-rule"></div>
+ 
+    <form>
+      {% csrf_token %}
+      <div class="form-grid">
+    <div class="field-group">
+      <label class="field-label" for="pName">Name</label>
+      <input type="text" id="pName" value="{{request.user.Student.student_name}}">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="pEmail">Email</label>
+      <input type="email" id="pEmail" value="{{request.user.Student.email}}">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="pMobile">Mobile</label>
+      <input type="text" id="pMobile" value="{{request.user.Student.mobile}}">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="pCourse">Course</label>
+      <input type="text" id="pCourse" value="{{request.user.Student.course}}">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="pSession">Session</label>
+      <input type="text" id="pSession" value="{{request.user.Student.session}}">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="pSemester">Semester</label>
+      <input type="text" id="pSemester" value="{{request.user.Student.semester}}">
+    </div>
+    <div class="field-group full">
+      <label class="field-label" for="pPassword">New Password (optional)</label>
+      <input type="password" id="pPassword">
+    </div>
+      </div>
+      <button type="submit" class="btn-plum">Update Profile</button>
+    </form>
+  </div>
+ 
+</div>
+{% endblock content %}

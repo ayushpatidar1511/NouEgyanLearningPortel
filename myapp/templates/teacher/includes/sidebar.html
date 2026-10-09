@@ -1,0 +1,80 @@
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-mark">NOU</div>
+    <div>
+      <div class="brand-name">NOU e-Gyan</div>
+      <div class="brand-sub">Nalanda Open University</div>
+    </div>
+  </div>
+
+  <span class="zone-pill"><span class="dot"></span>TEACHER ZONE</span>
+
+  <nav class="navgroups">
+    <div class="navgroup">
+      <div class="navgroup-title">DASHBOARD</div>
+      <a class="navlink {% if request.path == '/teacher' %}active{% endif %}" href="{% url "teacherdash" %}"
+        ><span class="chev">›</span> Dashboard</a
+      >
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">ACADEMICS</div>
+      <a class="navlink {% if request.path == '/teacher/session' %}active{% endif %}" href="{% url "t_current_session" %}"
+        ><span class="chev">›</span> Current Session</a
+      >
+      <a class="navlink {% if request.path == '/teacher/courses' %}active{% endif %}" href="{% url "t_my_courses" %}"><span class="chev">›</span> My Courses</a>
+      <a class="navlink {% if request.path == '/teacher/subjects' %}active{% endif %}" href="{% url "t_my_subjects" %}"><span class="chev">›</span> My Subjects</a>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">STUDY MATERIAL</div>
+      <a class="navlink {% if request.path == '/teacher/upload-study-material' %}active{% endif %}" href="{% url "t_upload_sm" %}"><span class="chev">›</span> Upload SM</a>
+      <a class="navlink {% if request.path == '/teacher/view-study-material' %}active{% endif %}" href="{% url "t_view_sm" %}"><span class="chev">›</span> View SM</a>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">ASSIGNMENTS</div>
+      <a class="navlink {% if request.path == '/teacher/add-task' %}active{% endif %}" href="{% url "t_add_task" %}"><span class="chev">›</span> Add Task</a>
+      <a class="navlink {% if request.path == '/teacher/view-task' %}active{% endif %}" href="{% url "t_view_task" %}"><span class="chev">›</span> View Task</a>
+      <a class="navlink {% if request.path == '/teacher/submission' %}active{% endif %}" href="{% url "t_submission" %}"><span class="chev">›</span> Submissions</a>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">ONLINE TEST</div>
+      <a class="navlink {% if request.path == '/teacher/add-test' %}active{% endif %}" href="{% url "t_add_test" %}"><span class="chev">›</span> Add Test</a>
+      <a class="navlink {% if request.path == '/teacher/view-test' %}active{% endif %}" href="{% url "t_view_test" %}"><span class="chev">›</span> View Test</a>
+      <a class="navlink {% if request.path == '/teacher/result' %}active{% endif %}" href="{% url "t_result" %}"><span class="chev">›</span> Results</a>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">ATTENDANCE</div>
+      <a class="navlink {% if request.path == '/teacher/mark-attendance' %}active{% endif %}" href="{% url "t_mark_attendance" %}"
+        ><span class="chev">›</span> Mark Attendance</a
+      >
+      <a class="navlink {% if request.path == '/teacher/attendance-report' %}active{% endif %}" href="{% url "t_report" %}"><span class="chev">›</span> Report</a>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">ONLINE CLASSES</div>
+      <a class="navlink {% if request.path == '/teacher/add-class' %}active{% endif %}" href="{% url "t_add_class" %}"
+        ><span class="chev">›</span> Schedule Google Meet Class</a
+      >
+      <a class="navlink {% if request.path == '/teacher/view-classes' %}active{% endif %}" href="{% url "t_view_class" %}"
+        ><span class="chev">›</span> View Classes</a
+      >
+
+    <div class="navgroup">
+      <div class="navgroup-title">OTHER</div>
+      <a class="navlink {% if request.path == '/teacher/announcements' %}active{% endif %}" href="{% url "t_announcements" %}"
+        ><span class="chev">›</span> Announcements</a
+      >
+      <a class="navlink {% if request.path == '/teacher/notifications' %}active{% endif %}" href="{% url "t_notifications" %}"
+        ><span class="chev">›</span> Notifications</a
+      >
+      <a class="navlink {% if request.path == '/teacher/profile' %}active{% endif %}" href="{% url "t_profile" %}"
+        ><span class="chev">›</span> Profile</a
+      >
+    </div>
+  </nav>
+</aside>

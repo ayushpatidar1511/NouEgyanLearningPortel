@@ -1,0 +1,60 @@
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-mark">NOU</div>
+    <div>
+      <div class="brand-name">NOU e-Gyan</div>
+      <div class="brand-sub">Nalanda Open University</div>
+    </div>
+  </div>
+
+  <span class="zone-pill"><span class="dot"></span>STUDENT ZONE</span>
+
+  <nav class="navgroups">
+    <div class="navgroup">
+      <div class="navgroup-title">DASHBOARD</div>
+      <a class="navlink {% if request.path == '/studentdash' %}active{% endif %}" href="{% url "studentdash" %}"
+        ><span class="chev">›</span> Dashboard</a
+      >
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">ACADEMICS</div>
+      <a class="navlink {% if request.path == '/studentdash/session' %}active{% endif %}" href="{% url "s_current_session" %}"
+        ><span class="chev">›</span> Current Session</a
+      >
+      <a class="navlink {% if request.path == '/studentdash/courses' %}active{% endif %}" href="{% url "s_course_detail" %}"><span class="chev">›</span> Course Details</a>
+      <a class="navlink {% if request.path == '/studentdash/subjects' %}active{% endif %}" href="{% url "s_my_subjects" %}"><span class="chev">›</span> My Subjects</a>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">LEARNING</div>
+      <a class="navlink {% if request.path == '/studentdash/study-material' %}active{% endif %}" href="{% url "s_study_material" %}"><span class="chev">›</span> Study Material</a>
+      <a class="navlink {% if request.path == '/studentdash/assignments' %}active{% endif %}" href="{% url "s_assignments" %}"><span class="chev">›</span> Assignments</a>
+      <a class="navlink {% if request.path == '/studentdash/submissions' %}active{% endif %}" href="{% url "s_submission" %}"><span class="chev">›</span> Submissions</a>
+      <a class="navlink {% if request.path == '/studentdash/programming-lab' %}active{% endif %}" href="{% url "student_code_lab" %}"
+        ><span class="chev">›</span> Programming Lab</a
+      >
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">ASSESSMENT</div>
+      <a class="navlink {% if request.path == '/studentdash/online-tests' %}active{% endif %}" href="{% url "s_online_test" %}"><span class="chev">›</span> Online Tests</a>
+      <a class="navlink {% if request.path == '/studentdash/results' %}active{% endif %}" href="{% url "s_my_results" %}"><span class="chev">›</span> My Results</a>
+      <a class="navlink {% if request.path == '/studentdash/attendance' %}active{% endif %}" href="{% url "s_attendance" %}"><span class="chev">›</span> Attendance</a>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">ONLINE CLASSES</div>
+      <a class="navlink {% if request.path == '/studentdash/classes' %}active{% endif %}" href="{% url "student_classes" %}"><span class="chev">›</span> Class Schedule</a>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">OTHER</div>
+      <a class="navlink {% if request.path == '/studentdash/announcements' %}active{% endif %}" href="{% url "s_announcements" %}"><span class="chev">›</span> Announcements</a>
+      <a class="navlink {% if request.path == '/studentdash/notifications' %}active{% endif %}" href="{% url "s_notifications" %}"><span class="chev">›</span> Notifications</a>
+      <a class="navlink {% if request.path == '/studentdash/profile' %}active{% endif %}" href="{% url "s_profile" %}"><span class="chev">›</span> Profile</a>
+      <a class="navlink {% if request.path == '/studentdash/help' %}active{% endif %}" href="{% url "s_help" %}"><span class="chev">›</span> Help</a>
+    </div>
+  </nav>
+</aside>

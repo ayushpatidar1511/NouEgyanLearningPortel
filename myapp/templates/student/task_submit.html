@@ -1,0 +1,15 @@
+{% extends "student/base.html" %}
+
+{% block content %}
+<h4>Task 1 :- {{data.title}}</h4>
+<h4>Task 1 :- {{data.course_name}}</h4>
+<h4>Task 1 :- {{data.subject_name}}</h4>
+<h4>Task 1 :- {{data.title}}</h4>
+<h4>Task 1 :- {{data.title}}</h4>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>submit assignment</p>
+    <input type="file" name="file"> <br>
+    <input type="submit" value="submit">
+</form>
+{% endblock content %}

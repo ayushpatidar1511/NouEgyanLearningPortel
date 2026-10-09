@@ -1,0 +1,169 @@
+{% extends "superadmin/base.html" %} 
+
+{% block content %}
+
+<!-- ================= Main content ================= -->
+
+<main class="main">
+  <!-- Primary stats -->
+  <div class="row g-3">
+    <div class="col-6 col-lg-3">
+      <div class="stat-dark">
+        <div class="label">Total Students</div>
+        <div class="num">{{students}}</div>
+        <div class="note">Active learner records</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-dark">
+        <div class="label">Academic Sessions</div>
+        <div class="num">{{sessions}}</div>
+        <div class="note">Configured sessions</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-dark">
+        <div class="label">Active Courses</div>
+        <div class="num">{{courses}}</div>
+        <div class="note">Programme catalogue</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-dark">
+        <div class="label">Online Classes</div>
+        <div class="num">{{classes}}</div>
+        <div class="note">Upcoming Google Meet classes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secondary stats -->
+  <div class="row g-3 mt-1">
+    <div class="col-6 col-lg-3">
+      <div class="stat-light">
+        <div class="top-row">
+          <div class="icon-badge">T</div>
+          <div class="tag">FACULTY</div>
+        </div>
+        <div class="num">{{teachers}}</div>
+        <div class="label">Faculty Members</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-light">
+        <div class="top-row">
+          <div class="icon-badge">S</div>
+          <div class="tag">ACADEMIC</div>
+        </div>
+        <div class="num">{{subjects}}</div>
+        <div class="label">Active Subjects</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-light">
+        <div class="top-row">
+          <div class="icon-badge">A</div>
+          <div class="tag">TASKS</div>
+        </div>
+        <div class="num">{{assignments}}</div>
+        <div class="label">Published Assignments</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-light">
+        <div class="top-row">
+          <div class="icon-badge">Q</div>
+          <div class="tag">TESTS</div>
+        </div>
+        <div class="num">{{tests}}</div>
+        <div class="label">Online Assessments</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="section-head">
+    <h2>Quick Actions</h2>
+    <div class="sub">Frequently used administration tools</div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <a href="{% url "add_single_student" %}" class="qa-card">
+        <div class="icon-badge">+</div>
+        <div>
+          <div class="title">Add / Bulk Students</div>
+          <div class="desc">Create accounts and send login credentials.</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+    <div class="col-md-6">
+      <a href="{% url "add_teacher" %}" class="qa-card">
+        <div class="icon-badge">T</div>
+        <div>
+          <div class="title">Add Teacher</div>
+          <div class="desc">Create and manage faculty profiles.</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+    <div class="col-md-6">
+      <a href="{% url "add_course" %}" class="qa-card">
+        <div class="icon-badge">C</div>
+        <div>
+          <div class="title">Add Course</div>
+          <div class="desc">Configure a programme for a session.</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+    <div class="col-md-6">
+      <a href="{% url "add_class" %}" class="qa-card">
+        <div class="icon-badge">▶</div>
+        <div>
+          <div class="title">Schedule Google Meet</div>
+          <div class="desc">Create a fresh Meet link automatically.</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Bottom panels -->
+  <div class="row g-3 mt-1">
+    <div class="col-lg-6">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>Upcoming Classes</h3>
+            <div class="sub">Next scheduled online sessions</div>
+          </div>
+          <div class="pill">LIVE SCHEDULE</div>
+        </div>
+        <div class="empty-note">No classes scheduled yet.</div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h3>Important Notices</h3>
+            <div class="sub">Latest university communication</div>
+          </div>
+          <div class="pill">LATEST</div>
+        </div>
+        <div class="notice-item">
+          <div class="dot"></div>
+          <div>
+            <div class="title">Welcome to NOU e-Gyan</div>
+            <div class="body">Demo LMS is ready for academic use.</div>
+            <div class="meta">10 Sep 2026 · Important</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock content %}

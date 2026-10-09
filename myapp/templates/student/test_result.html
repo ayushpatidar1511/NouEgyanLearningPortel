@@ -1,0 +1,23 @@
+{% block content %}
+{% if already_submitted %}
+
+<h2>Already Submitted!</h2>
+
+<p>You have already submitted this test.</p>
+
+<h4>
+Your Marks: {{ result.obtained_marks }}
+/ {{ test.total_marks }}
+</h4>
+
+{% else %}
+
+<h2>Test Submitted Successfully!</h2>
+
+<h4>
+Your Marks: {{ result.obtained_marks }}
+/ {{ test.total_marks }}
+</h4>
+
+{% endif %}
+{% endblock content %}

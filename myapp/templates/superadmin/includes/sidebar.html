@@ -1,0 +1,138 @@
+<!-- ================= Sidebar ================= -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">NOU</div>
+        <div class="brand-text">
+          <div class="school">NOU e-Gyan</div>
+          <div class="place">Nalanda Open University</div>
+        </div>
+      </div>
+
+      <div class="role-badge"><span class="dot"></span> Super Admin</div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">DASHBOARD</div>
+        <a href="{% url "superadmindash" %}" class="nav-link-item {% if request.path == '/superadmindash' %}active{% endif %}"
+          ><span class="rune">›</span> Dashboard </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">MANAGE SESSION</div>
+        <a href="{% url "add_session" %}" class="nav-link-item {% if request.path == '/superadmindash/add-session' %}active{% endif %}"
+          ><span class="rune">›</span> Add Session</a
+        >
+        <a href="{% url "show_session" %}" class="nav-link-item {% if request.path == '/superadmindash/show-session' %}active{% endif %} "
+          ><span class="rune">›</span> Show Session</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">MANAGE COURSES</div>
+        <a href="{% url "add_course" %}" class="nav-link-item {% if request.path == '/superadmindash/add-course' %}active{% endif %}"
+          ><span class="rune">›</span> Add Course</a
+        >
+        <a href="{% url "view_course" %}" class="nav-link-item {% if request.path == '/superadmindash/view-course' %}active{% endif %}"
+          ><span class="rune">›</span> View Course</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">MANAGE SUBJECT</div>
+        <a href="{% url "add_subject" %}" class="nav-link-item {% if request.path == '/superadmindash/add-subject' %}active{% endif %}"
+          ><span class="rune">›</span> Add Subject</a
+        >
+        <a href="{% url "view_subject" %}" class="nav-link-item {% if request.path == '/superadmindash/view-subject' %}active{% endif %}"
+          ><span class="rune">›</span> View Subject</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">MANAGE TEACHER</div>
+        <a href="{% url "add_teacher" %}" class="nav-link-item {% if request.path == '/superadmindash/add-teacher' %}active{% endif %}"
+          ><span class="rune">›</span> Add Single Teacher</a
+        >
+        <a href="{% url "add_bulk_teacher" %}" class="nav-link-item {% if request.path == '/superadmindash/add-teachers' %}active{% endif %}"
+          ><span class="rune">›</span> Add Bulk Teachers</a
+        >
+        <a href="{% url "view_teacher" %}" class="nav-link-item {% if request.path == '/superadmindash/view-teacher' %}active{% endif %}"
+          ><span class="rune">›</span> View Teacher</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">MANAGE STUDENTS</div>
+        <a href="{% url "add_single_student" %}" class="nav-link-item {% if request.path == '/superadmindash/add-student' %}active{% endif %}"
+          ><span class="rune">›</span> Add Single Student</a
+        >
+        <a href="{% url "add_bulk_student" %}" class="nav-link-item {% if request.path == '/superadmindash/add-students' %}active{% endif %}"
+          ><span class="rune">›</span> Add Bulk Students</a
+        >
+        <a href="{% url "view_student" %}" class="nav-link-item {% if request.path == '/superadmindash/view-student' %}active{% endif %}"
+          ><span class="rune">›</span> View Students</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">STUDY MATERIAL</div>
+        <a href="{% url "upload_study_material" %}" class="nav-link-item {% if request.path == '/superadmindash/upload-study-material' %}active{% endif %}"
+          ><span class="rune">›</span> Upload SM</a
+        >
+        <a href="{% url "view_study_material" %}" class="nav-link-item {% if request.path == '/superadmindash/view-study-material' %}active{% endif %}"
+          ><span class="rune">›</span> View SM</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">TASK & ASSIGNMENT</div>
+        <a href="{% url "add_task" %}" class="nav-link-item {% if request.path == '/superadmindash/add-task' %}active{% endif %}"
+          ><span class="rune">›</span> Add Task</a
+        >
+        <a href="{% url "view_task" %}" class="nav-link-item {% if request.path == '/superadmindash/view-task' %}active{% endif %}"
+          ><span class="rune">›</span> View Task</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">ONLINE TEST</div>
+        <a href="{% url "add_test" %}" class="nav-link-item {% if request.path == '/superadmindash/add-test' %}active{% endif %}"
+          ><span class="rune">›</span> Add Test</a
+        >
+        <a href="{% url "view_test" %}" class="nav-link-item {% if request.path == '/superadmindash/view-test' %}active{% endif %}"
+          ><span class="rune">›</span> View Test</a
+        >
+        <a href="{% url "test_result" %}" class="nav-link-item {% if request.path == '/superadmindash/test-result' %}active{% endif %}"
+          ><span class="rune">›</span> Result</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">ATTENDANCE</div>
+        <a href="{% url "student_attendance" %}" class="nav-link-item {% if request.path == '/superadmindash/student-attendance' %}active{% endif %}"
+          ><span class="rune">›</span> Student Attendance</a
+        >
+        <a href="{% url "attendance_report" %}" class="nav-link-item {% if request.path == '/superadmindash/attendance-report' %}active{% endif %}"
+          ><span class="rune">›</span> Attendance Reports</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">ONLINE CLASSES</div>
+        <a href="{% url "add_class" %}" class="nav-link-item {% if request.path == '/superadmin/online-classes/schedule/' %}active{% endif %}"
+          ><span class="rune">›</span> Schedule Google Meet Class</a
+          >
+        <a href="{% url "superadmin_classes" %}" class="nav-link-item {% if request.path == '/superadmindash/view-class' %}active{% endif %}"
+          ><span class="rune">›</span> View Classes</a
+        >
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">COMMUNICATION</div>
+        <a href="{% url "announcements" %}" class="nav-link-item {% if request.path == '/superadmindash/announcements' %}active{% endif %}"
+          ><span class="rune">›</span> Announcements</a
+        >
+        <a href="{% url "notification" %}" class="nav-link-item {% if request.path == '/superadmindash/notification' %}active{% endif %}"
+          ><span class="rune">›</span> Notifications</a
+        >
+      </div>
+
+    </aside>

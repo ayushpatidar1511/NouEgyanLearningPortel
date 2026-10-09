@@ -1,0 +1,576 @@
+{% comment %} <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login...</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <style>
+      .divider:after,
+      .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+      }
+      .h-custom {
+        height: calc(100% - 73px);
+      }
+      @media (max-width: 450px) {
+        .h-custom {
+          height: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="vh-100">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-9 col-lg-6 col-xl-5">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+              class="img-fluid"
+              alt="Sample image"
+            />
+          </div>
+          <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <form method="post">
+              {% csrf_token %}
+              <div
+                class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start"
+              >
+                <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+                <button
+                  type="button"
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-primary btn-floating mx-1"
+                >
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+
+                <button
+                  type="button"
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-primary btn-floating mx-1"
+                >
+                  <i class="fab fa-twitter"></i>
+                </button>
+
+                <button
+                  type="button"
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-primary btn-floating mx-1"
+                >
+                  <i class="fab fa-linkedin-in"></i>
+                </button>
+              </div>
+
+              <div class="divider d-flex align-items-center my-4">
+                <p class="text-center fw-bold mx-3 mb-0">Or</p>
+              </div>
+
+              <!-- Email input -->
+              <div data-mdb-input-init class="form-outline mb-4">
+                <input
+                  type="text"
+                  id="form3Example3"
+                  name="username"
+                  class="form-control form-control-lg"
+                  placeholder="Enter a valid email address"
+                />
+                <label class="form-label" for="form3Example3"
+                  >Email address</label
+                >
+              </div>
+
+              <!-- Password input -->
+              <div data-mdb-input-init class="form-outline mb-3">
+                <input
+                  type="password"
+                  name="password"
+                  id="form3Example4"
+                  class="form-control form-control-lg"
+                  placeholder="Enter password"
+                />
+                <label class="form-label" for="form3Example4">Password</label>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- Checkbox -->
+                <div class="form-check mb-0">
+                  <input
+                    class="form-check-input me-2"
+                    type="checkbox"
+                    value=""
+                    id="form2Example3"
+                  />
+                  <label class="form-check-label" for="form2Example3">
+                    Remember me
+                  </label>
+                </div>
+                <a href="#!" class="text-body">Forgot password?</a>
+              </div>
+
+              <div class="text-center text-lg-start mt-4 pt-2">
+                <button class="btn btn-primary btn-lg"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem">
+                  Submit
+                </button>
+                <p class="small fw-bold mt-2 pt-1 mb-0">
+                  Don't have an account?
+                  <a href="#!" class="link-danger">Register</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary"
+      >
+        <!-- Copyright -->
+        <div class="text-white mb-3 mb-md-0">
+          Copyright © 2020. All rights reserved.
+        </div>
+        <!-- Copyright -->
+
+        <!-- Right -->
+        <div>
+          <a href="#!" class="text-white me-4">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#!" class="text-white me-4">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#!" class="text-white me-4">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="#!" class="text-white">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+        <!-- Right -->
+      </div>
+    </section>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html> {% endcomment %}
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome — NOU e-Gyan Portal</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   NALANDA THEME — reusable design tokens
+   Copy this block into any page of the site to keep the
+   look consistent across the whole portal.
+   ========================================================= */
+:root{
+  --ink:        #ebecf2;   /* night sky over the ruins */
+  --ink-soft:   #262B48;   /* raised panels on ink */
+  --brick:      #7A3728;   /* oxidised temple brick */
+  --brick-deep: #55251A;   /* brick in shadow */
+  --parchment:  #F3ECDA;   /* aged manuscript page */
+  --parchment-2:#E9DFC5;   /* parchment, one shade down */
+  --brass:      #B8863B;   /* inscription gold */
+  --brass-soft: #D8B876;
+  --sage:       #7C8A6E;   /* moss on old stone */
+  --ink-text:   #3b311d;
+
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Work Sans', sans-serif;
+
+  --radius: 2px;           /* stone edges are cut, not rounded */
+}
+
+body{
+  background: var(--ink);
+  font-family: var(--font-body);
+  color: var(--ink-text);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Faint carved-arch motif behind the whole viewport */
+.stage{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 1rem;
+  background:#ece3d6;
+}
+
+/* ---------- Shell ---------- */
+.gate-shell{
+  width: 100%;
+  max-width: 1080px;
+  max-height: 630px;
+  background: var(--parchment);
+  border: 1px solid var(--brass-soft);
+  box-shadow: 0 40px 90px -30px rgba(0,0,0,0.6);
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+/* ---------- Left: inscription panel ---------- */
+.tablet{
+  background:
+    linear-gradient(180deg, rgba(23,26,46,0.0) 0%, rgba(23,26,46,0.35) 100%),
+    repeating-linear-gradient(115deg, rgba(184,134,59,0.05) 0 2px, transparent 2px 26px),
+    linear-gradient(160deg, var(--brick) 0%, var(--brick-deep) 100%);
+  color: var(--parchment);
+  padding: 2rem 2.5rem;
+  position: relative;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mark{
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+.mark-glyph{
+  width: 44px; height: 44px;
+  border: 1.5px solid var(--brass-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--brass-soft);
+  flex: none;
+}
+.mark-name{ line-height: 1.15; }
+.mark-name .school{
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  letter-spacing: 0.03em;
+}
+.mark-name .place{
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--brass-soft);
+  text-transform: uppercase;
+}
+
+.tablet h1{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.35rem;
+  line-height: 1.22;
+  margin-bottom: 0.2rem;
+}
+.tablet h1 .line2{ color: var(--brass-soft); }
+
+.tablet p.lede{
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: rgba(243,236,218,0.82);
+  max-width: 30ch;
+  margin: 0.2rem 0 1.5rem;
+}
+
+.inscription-list{
+  border-top: 1px solid rgba(184,134,59,0.35);
+}
+.inscription-list .row-item{
+  display: flex;
+  gap: 1rem;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid rgba(184,134,59,0.35);
+}
+.row-item .rune{
+  font-family: var(--font-display);
+  color: var(--brass-soft);
+  font-size: 1.1rem;
+  flex: none;
+  width: 1.4rem;
+}
+.row-item .txt{
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(243,236,218,0.9);
+}
+
+.tablet .contact{
+  margin-top: 1px;
+  padding-top: 2.2rem;
+  font-size: 0.82rem;
+  color: rgba(243,236,218,0.65);
+  line-height: 1.6;
+}
+.tablet .contact a{ color: var(--brass-soft); text-decoration: none; }
+
+/* ---------- Right: form panel ---------- */
+.scriptorium{
+  padding: 2.2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eyebrow-note{
+  font-size: 0.82rem;
+  color: var(--sage);
+  margin-bottom: 0.35rem;
+}
+
+.scriptorium h2{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.9rem;
+  color:black;
+  margin-bottom: 0.5rem;
+}
+.scriptorium .sub{
+  font-size: 0.94rem;
+  color: #5c5642;
+  margin-bottom: 1rem;
+}
+
+.role-strip{
+  border: 1px solid var(--parchment-2);
+  background: #fbf8ef;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  margin-bottom: 0.5rem;
+  border-left: 3px solid var(--brass);
+}
+.role-strip span.roles{ color: var(--brick); font-weight: 600; }
+
+.field-label{
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.stone-input{
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+.stone-input input{
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--parchment-2);
+  padding: 0.55rem 0.1rem 0.55rem 1.9rem;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  color: var(--ink-text);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.stone-input input:focus{
+  border-bottom-color: var(--brick);
+}
+.stone-input .ic{
+  position: absolute;
+  left: 0.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--brass);
+  font-size: 0.95rem;
+}
+
+.remember-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.4rem 0 1.8rem;
+  font-size: 0.85rem;
+}
+.remember-row .form-check-input{
+  border-radius: 0;
+  border-color: var(--parchment-2);
+}
+.remember-row .form-check-input:checked{
+  background-color: var(--brick);
+  border-color: var(--brick);
+}
+.remember-row .secure-tag{
+  color: var(--sage);
+  letter-spacing: 0.02em;
+}
+
+.btn-seal{
+  background: var(--brick);
+  color: var(--parchment);
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 1rem;
+  border: none;
+  width: 100%;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.btn-seal:hover{
+  background: var(--brick-deep);
+  color: var(--parchment);
+  transform: translateY(-1px);
+}
+
+.divider-note{
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1rem 0 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #a89f86;
+}
+.divider-note::before, .divider-note::after{
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--parchment-2);
+}
+
+.dashboard-note{
+  text-align: center;
+  font-size: 0.88rem;
+  color: #5c5642;
+  margin-bottom: 1rem;
+}
+
+.btn-outline-seal{
+  display: block;
+  margin: 0 auto;
+  background: transparent;
+  border: 1.5px solid var(--brick);
+  color: var(--brick);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.55rem 1.4rem;
+  transition: all 0.2s ease;
+}
+.btn-outline-seal:hover{
+  background: var(--brick);
+  color: var(--parchment);
+}
+
+@media (max-width: 767px){
+  .tablet, .scriptorium{ padding: 2.2rem 1.6rem; }
+  .tablet h1{ font-size: 1.9rem; }
+}
+</style>
+</head>
+<body>
+{% for mess in messages %}
+<div class="alert alert-danger" role="alert">
+  {{mess}}
+</div>
+{% endfor %}
+
+<div class="stage">
+  <div class="gate-shell row g-0">
+
+    <!-- Left inscription panel -->
+    <div class="col-lg-5 tablet">
+      <div class="mark">
+        <div class="mark-glyph"><img class="h-100" src="https://nouegyan.in/assets/img/logo/logo1.png" alt=""></div>
+        <div class="mark-name">
+          <div class="school">NOU e-Gyan Portal</div>
+          <div class="place">Nalanda Open University</div>
+        </div>
+      </div>
+
+      <h1>Your degree,<br><span class="line2">on your own time.</span></h1>
+      <p class="lede">One account, kept like a single ledger, for every book, assignment and result you'll need on the way to your degree.</p>
+
+      <div class="inscription-list">
+        <div class="row-item">
+          <div class="rune">॥</div>
+          <div class="txt">One login form serves the whole learning management system</div>
+        </div>
+        <div class="row-item">
+          <div class="rune">॥</div>
+          <div class="txt">Your dashboard — student, teacher or admin — opens on its own</div>
+        </div>
+      </div>
+
+      <div class="contact">
+        Need help signing in? Call +91 7080102007 or write to<br>
+        <a href="mailto:nouegyanhelp@gmail.com">nouegyanhelp@gmail.com</a>
+      </div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="col-lg-7 scriptorium">
+      <div class="eyebrow-note">Welcome back</div>
+      <h2>Sign in to continue</h2>
+      <p class="sub">Use your student, teacher or super admin credentials.</p>
+
+      <div class="role-strip">
+        <span>One secure login for</span>
+        <span class="roles">Student · Teacher · Super Admin</span>
+      </div>
+
+      <form method="post">
+        {% csrf_token %}
+        <label class="field-label" for="loginId">Login ID / Email</label>
+        <div class="stone-input">
+          <span class="ic">&#9993;</span>
+          <input type="text" name="username" id="loginId" placeholder="e.g. superadmin">
+        </div>
+
+        <label class="field-label" for="pass">Password</label>
+        <div class="stone-input">
+          <span class="ic">&#128274;</span>
+          <input type="password" name="password" id="pass" placeholder="Enter your password">
+        </div>
+
+        <div class="remember-row">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Remember me</label>
+          </div>
+          <span class="secure-tag">NOU e-Gyan secure login</span>
+        </div>
+
+        <button type="submit" class="btn btn-seal">Sign In</button>
+      </form>
+
+      <div class="divider-note">ONE FORM · THREE PANELS</div>
+
+      <p class="dashboard-note">Your dashboard opens on its own once you sign in.</p>
+      <button class="btn btn-outline-seal" type="button">Open Admin Dashboard</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

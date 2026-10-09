@@ -1,0 +1,190 @@
+{% extends "teacher/base.html" %}
+
+{% block content %}
+<main class="content">
+<style>
+  :root {
+    --ink: #171a2e;
+    --brick: #2e4a34;
+    --brick-deep: #1d3323;
+    --parchment: #f3ecda;
+    --parchment-2: #e9dfc5;
+    --brass: #b8863b;
+    --brass-soft: #d8b876;
+    --ink-text: #2a2418;
+    --font-display: "Cinzel", serif;
+    --font-body: "Work Sans", sans-serif;
+  }
+  .ms-wrap { font-family: var(--font-body); color: var(--ink-text); }
+
+  /* ---------- Hero ---------- */
+  .ms-hero {
+    position: relative; overflow: hidden; border-radius: 16px;
+    padding: 30px 34px;
+    background: linear-gradient(155deg, var(--brick) 0%, var(--brick-deep) 100%);
+    border: 1px solid var(--brick-deep);
+    color: var(--parchment); margin-bottom: 24px;
+  }
+  .ms-hero::after {
+    content: ""; position: absolute; right: -40px; bottom: -40px;
+    width: 150px; height: 150px; border-radius: 50%;
+    background: rgba(216, 184, 118, 0.1);
+  }
+  .ms-hero-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px; position: relative; z-index: 1; flex-wrap: wrap;
+  }
+  .ms-eyebrow { font-size: .7rem; letter-spacing: .14em; font-weight: 700; color: var(--brass-soft); margin-bottom: 10px; }
+  .ms-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 2.8vw, 1.9rem); margin: 0 0 8px; line-height: 1.2; }
+  .ms-desc { font-size: .9rem; color: rgba(243, 236, 218, .8); max-width: 520px; }
+  .ms-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+  .ms-chip {
+    background: rgba(243, 236, 218, .1); border: 1px solid rgba(216, 184, 118, .4);
+    color: var(--brass-soft); font-size: .7rem; font-weight: 700; letter-spacing: .04em;
+    padding: 6px 15px; border-radius: 999px; white-space: nowrap;
+  }
+
+  /* ---------- Form panel ---------- */
+  .ms-form-panel {
+    background: #fff; border: 1px solid var(--parchment-2);
+    border-radius: 14px; padding: 28px 32px 32px; margin-bottom: 24px;
+  }
+  .ms-form-title { font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; color: var(--ink); margin: 0 0 12px; }
+  .ms-form-rule { width: 46px; height: 4px; border-radius: 2px; background: var(--brick); margin-bottom: 26px; }
+  .ms-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+  .ms-label { font-size: .86rem; font-weight: 700; color: var(--ink); }
+  .ms-select {
+    border: 1px solid var(--parchment-2); border-radius: 9px; padding: 12px 14px;
+    font-size: .9rem; font-family: var(--font-body); color: var(--ink-text);
+    background: #fff; width: 100%;
+  }
+  .ms-select:focus {
+    outline: none; border-color: var(--brick);
+    box-shadow: 0 0 0 3px rgba(46, 74, 52, .12);
+  }
+  .ms-btn {
+    background: linear-gradient(135deg, var(--brick) 0%, var(--brick-deep) 100%);
+    color: var(--parchment); border: none; padding: 12px 24px;
+    border-radius: 9px; font-size: .9rem; font-weight: 700; cursor: pointer;
+  }
+  .ms-btn:hover { filter: brightness(1.06); }
+
+  /* ---------- List head ---------- */
+  .ms-list-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .ms-count-pill {
+    background: rgba(46, 74, 52, .1); color: var(--brick);
+    font-size: .72rem; font-weight: 700; padding: 6px 14px;
+    border-radius: 999px; white-space: nowrap;
+  }
+
+  /* ---------- Table ---------- */
+  .ms-panel { background: #fff; border: 1px solid var(--parchment-2); border-radius: 14px; overflow: hidden; overflow-x: auto; }
+  .ms-table { width: 100%; border-collapse: collapse; min-width: 760px; }
+  .ms-table thead th {
+    text-align: center; font-size: .7rem; letter-spacing: .1em; color: var(--brick);
+    font-weight: 700; padding: 16px 22px; border-bottom: 1px solid var(--parchment-2);
+    background: var(--parchment); white-space: nowrap;
+  }
+  .ms-table tbody td {
+    text-align: center; padding: 16px 22px; font-size: .87rem;
+    border-bottom: 1px solid var(--parchment-2); color: var(--ink); white-space: nowrap;
+  }
+  .ms-table tbody tr:last-child td { border-bottom: none; }
+  .ms-table tbody tr:hover { background: #fbf8f1; }
+  .ms-pill {
+    display: inline-block; background: rgba(46, 74, 52, .1); color: var(--brick);
+    font-size: .76rem; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+  }
+  .ms-empty { padding: 56px 24px !important; text-align: center; color: #8a8067; font-size: .88rem; white-space: normal !important; }
+  .ms-footnote { text-align: center; font-size: .76rem; color: #9a9078; margin-top: 26px; }
+</style>
+
+<div class="ms-wrap">
+
+  <!-- Hero -->
+  <div class="ms-hero">
+    <div class="ms-hero-top">
+      <div>
+        <div class="ms-eyebrow">NOU DIGITAL CAMPUS</div>
+        <h1 class="ms-title">Attendance Reports</h1>
+        <div class="ms-desc">
+          Consolidated attendance percentage for every active student.
+        </div>
+      </div>
+      <div class="ms-chips">
+        <span class="ms-chip">ACADEMIC ERP</span>
+        <span class="ms-chip">SESSION 2026–2027</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Course filter -->
+  <div class="ms-form-panel">
+    <h2 class="ms-form-title">Select Course</h2>
+    <div class="ms-form-rule"></div>
+
+    <form method="get" action="{% url 't_report' %}">
+      <div class="ms-field">
+        <label class="ms-label" for="course">Course</label>
+        <select class="ms-select" name="course" id="course">
+          <option value="">--Select Course--</option>
+          {% for i in ab %}
+          <option value="{{ i.course_name }}" {% if course == i.course_name %}selected{% endif %}>
+            {{ i.course_name }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button type="submit" class="ms-btn">Show Attendance</button>
+    </form>
+  </div>
+
+  <!-- Attendance table (sirf course select hone ke baad) -->
+  {% if course %}
+  <div class="ms-list-head">
+    <div>
+      <h2 class="ms-form-title">{{ course }}</h2>
+      <div class="ms-form-rule" style="margin-bottom:0"></div>
+    </div>
+    <span class="ms-count-pill">{{ students|length }} Students</span>
+  </div>
+
+  <div class="ms-panel">
+    <table class="ms-table">
+      <thead>
+        <tr>
+          <th>SRNO</th>
+          <th>ENROLLMENT NO</th>
+          <th>STUDENT NAME</th>
+          <th>TOTAL CLASSES</th>
+          <th>PRESENT</th>
+          <th>ABSENT</th>
+          <th>PRESENT %</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in students %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ i.enrollment_no }}</td>
+          <td>{{ i.student_name }}</td>
+          <td>{{ i.total }}</td>
+          <td>{{ i.present }}</td>
+          <td>{{ i.absent }}</td>
+          <td><span class="ms-pill">{{ i.percent }}%</span></td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" class="ms-empty">No students found for this course.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+ 
+</div>
+</main>
+{% endblock content %}

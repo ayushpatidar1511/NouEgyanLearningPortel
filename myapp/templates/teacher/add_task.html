@@ -1,0 +1,340 @@
+{% extends "teacher/base.html" %} {% block content %}
+
+<main class="content">
+<!-- =========================================================
+     MAIN SECTION ONLY — Add Assignment (forest-green theme)
+     ========================================================= -->
+<style>
+  :root {
+    --ink: #171a2e;
+    --brick: #2e4a34;
+    --brick-deep: #1d3323;
+    --parchment: #f3ecda;
+    --parchment-2: #e9dfc5;
+    --brass: #b8863b;
+    --brass-soft: #d8b876;
+    --ink-text: #2a2418;
+    --font-display: "Cinzel", serif;
+    --font-body: "Work Sans", sans-serif;
+  }
+  .ms-wrap {
+    font-family: var(--font-body);
+    color: var(--ink-text);
+  }
+  .ms-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    padding: 30px 34px;
+    background: linear-gradient(
+      155deg,
+      var(--brick) 0%,
+      var(--brick-deep) 100%
+    );
+    border: 1px solid var(--brick-deep);
+    color: var(--parchment);
+    margin-bottom: 24px;
+  }
+  .ms-hero::after {
+    content: "";
+    position: absolute;
+    right: -40px;
+    bottom: -40px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(216, 184, 118, 0.1);
+  }
+  .ms-hero-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .ms-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: var(--brass-soft);
+    margin-bottom: 10px;
+  }
+  .ms-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.8vw, 1.9rem);
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+  .ms-desc {
+    font-size: 0.9rem;
+    color: rgba(243, 236, 218, 0.8);
+    max-width: 520px;
+  }
+  .ms-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .ms-chip {
+    background: rgba(243, 236, 218, 0.1);
+    border: 1px solid rgba(216, 184, 118, 0.4);
+    color: var(--brass-soft);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 6px 15px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .ms-hero-badge {
+    position: relative;
+    z-index: 1;
+    margin-top: 20px;
+    display: inline-block;
+  }
+
+  .ms-form-panel {
+    background: #fff;
+    border: 1px solid var(--parchment-2);
+    border-radius: 14px;
+    padding: 28px 32px 32px;
+  }
+  .ms-form-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+  .ms-form-rule {
+    width: 46px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--brick);
+    margin-bottom: 26px;
+  }
+
+  .ms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 28px;
+  }
+  .ms-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ms-field.full {
+    grid-column: 1 / -1;
+  }
+  .ms-label {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .ms-input,
+  .ms-select,
+  .ms-textarea {
+    border: 1px solid var(--parchment-2);
+    border-radius: 9px;
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    color: var(--ink-text);
+    background: #fff;
+    width: 100%;
+  }
+  .ms-textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  .ms-input:focus,
+  .ms-select:focus,
+  .ms-textarea:focus {
+    outline: none;
+    border-color: var(--brick);
+    box-shadow: 0 0 0 3px rgba(46, 74, 52, 0.12);
+  }
+  .ms-input-icon {
+    position: relative;
+  }
+  .ms-input-icon .icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8a8067;
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+  .ms-file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--parchment-2);
+    border-radius: 9px;
+    padding: 9px 14px;
+    font-size: 0.86rem;
+    color: #8a8067;
+  }
+  .ms-file button {
+    border: 1px solid var(--parchment-2);
+    background: var(--parchment);
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+
+  .ms-submit {
+    margin-top: 28px;
+    background: linear-gradient(
+      135deg,
+      var(--brick) 0%,
+      var(--brick-deep) 100%
+    );
+    color: var(--parchment);
+    border: none;
+    padding: 13px 26px;
+    border-radius: 9px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .ms-submit:hover {
+    filter: brightness(1.06);
+  }
+
+  .ms-footnote {
+    text-align: center;
+    font-size: 0.76rem;
+    color: #9a9078;
+    margin-top: 26px;
+  }
+  @media (max-width: 760px) {
+    .ms-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="ms-wrap">
+  <div class="ms-hero">
+    <div class="ms-hero-top">
+      <div>
+        <div class="ms-eyebrow">NOU DIGITAL CAMPUS</div>
+        <h1 class="ms-title">Add Assignment</h1>
+        <div class="ms-desc">
+          Create a task for one of your assigned subjects.
+        </div>
+      </div>
+      <div class="ms-chips">
+        <span class="ms-chip">ACADEMIC ERP</span>
+        <span class="ms-chip">SESSION 2026–2027</span>
+      </div>
+    </div>
+    <div class="ms-hero-badge">
+      <span class="ms-chip">SESSION 2026–2027</span>
+    </div>
+  </div>
+
+  <div class="ms-form-panel">
+    <h2 class="ms-form-title">Assignment Information</h2>
+    <div class="ms-form-rule"></div>
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="ms-grid">
+        <div class="ms-field">
+          <label class="ms-label">Title</label>
+          <input
+            class="ms-input"
+            type="text"
+            name="title"
+            placeholder="e.g. Assignment 2 — Case Study"
+          />
+        </div>
+        
+        <div class="ms-field">
+          <label class="ms-label">Dor Date</label>
+          <input
+          class="ms-input"
+          type="date"
+          name="Dor_date"
+          placeholder="dd-mm-yyyy"
+          />
+        </div>
+
+        <div class="ms-field">
+          <label class="ms-label">Due Date</label>
+          <input
+          class="ms-input"
+          type="date"
+          name="due_date"
+          placeholder="dd-mm-yyyy"
+          />
+        </div>
+
+        <div class="ms-field">
+          <label class="ms-label">course</label>
+          <select class="ms-select" name="course">
+            <option value="">Select course</option>
+            {% for s in course_data %}
+            <option value="{{ s.course_name }}">{{ s.course_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="ms-field">
+          <label class="ms-label">Subject</label>
+          <select class="ms-select" name="subject">
+            <option value="">Select subject</option>
+            {% for s in subject_data %}
+            <option value="{{ s.subject_name }}">{{ s.subject_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="ms-field">
+          <label class="ms-label">Total Marks</label>
+          <input class="ms-input" type="number" name="total_marks" value="20" />
+        </div>
+
+        <div class="ms-field">
+          <label class="ms-label">Attachment</label>
+          <div class="ms-file">
+            <button type="button">Choose File</button>
+            <input name="attachment" type="file" id="taskFile" />
+          </div>
+        </div>
+        <div class="ms-field">
+          <label class="ms-label">Status</label>
+          <select class="ms-select" name="status">
+            <option>Published</option>
+            <option>Draft</option>
+          </select>
+        </div>
+
+        <div class="ms-field full">
+          <label class="ms-label">Instructions</label>
+          <textarea
+            class="ms-textarea"
+            name="instruction"
+            placeholder="Instructions for students..."
+          ></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="ms-submit">Publish Assignment</button>
+    </form>
+  </div>
+
+  
+</div>
+</main>
+{% endblock content%}

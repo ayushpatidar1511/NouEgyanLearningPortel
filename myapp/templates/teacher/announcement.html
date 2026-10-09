@@ -1,0 +1,146 @@
+{% extends "teacher/base.html" %} {% block content %}
+<!-- =========================================================
+MAIN SECTION ONLY — Teacher Profile (forest-green theme)
+     ========================================================= -->
+<style>
+  :root {
+    --ink: #171a2e;
+    --brick: #2e4a34;
+    --brick-deep: #1d3323;
+    --parchment: #f3ecda;
+    --parchment-2: #e9dfc5;
+    --brass: #b8863b;
+    --brass-soft: #d8b876;
+    --ink-text: #2a2418;
+    --font-display: "Cinzel", serif;
+    --font-body: "Work Sans", sans-serif;
+  }
+  .ms-wrap {
+    font-family: var(--font-body);
+    color: var(--ink-text);
+  }
+  .ms-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    padding: 30px 34px;
+    background: linear-gradient(
+      155deg,
+      var(--brick) 0%,
+      var(--brick-deep) 100%
+    );
+    border: 1px solid var(--brick-deep);
+    color: var(--parchment);
+    margin-bottom: 24px;
+  }
+  .ms-hero::after {
+    content: "";
+    position: absolute;
+    right: -40px;
+    bottom: -40px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(216, 184, 118, 0.1);
+  }
+  .ms-hero-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .ms-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: var(--brass-soft);
+    margin-bottom: 10px;
+  }
+  .ms-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.8vw, 1.9rem);
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+  .ms-desc {
+    font-size: 0.9rem;
+    color: rgba(243, 236, 218, 0.8);
+    max-width: 520px;
+  }
+  .ms-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .ms-chip {
+    background: rgba(243, 236, 218, 0.1);
+    border: 1px solid rgba(216, 184, 118, 0.4);
+    color: var(--brass-soft);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 6px 15px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .ms-hero-badge {
+    position: relative;
+    z-index: 1;
+    margin-top: 20px;
+    display: inline-block;
+  }
+
+  /* ---------- notice card list (Announcements / Notifications) ---------- */
+.notice-card{
+  background:#fff; border:1px solid var(--parchment-2); border-radius:16px;
+  padding: 24px 26px; margin-bottom: 16px;
+}
+.notice-tags{ display:flex; gap:8px; margin-bottom: 14px; flex-wrap:wrap; }
+.notice-tag{
+  font-size:0.72rem; font-weight:700; padding: 5px 13px; border-radius:999px;
+  background: rgba(169,130,154,0.15); color: var(--brick);
+}
+.notice-tag.date{ background: rgba(201,162,39,0.15); color:#8A6B10; }
+.notice-title{ font-family: var(--font-display); font-weight:700; font-size:1.1rem; color: var(--ink); margin-bottom:6px; }
+.notice-body{ font-size:0.9rem; color:#6B6250; 
+}
+</style>
+
+<main class="content">
+  <div class="ms-wrap">
+    <div class="ms-hero">
+      <div class="ms-hero-top">
+        <div>
+          <div class="ms-eyebrow">NOU DIGITAL CAMPUS</div>
+          <h1 class="ms-title">Announcements</h1>
+          <div class="ms-desc">
+            Academic announcements published for teachers.
+          </div>
+        </div>
+        <div class="ms-chips">
+          <span class="ms-chip">ACADEMIC ERP</span>
+          <span class="ms-chip">SESSION 2026–2027</span>
+        </div>
+      </div>
+      <div class="ms-hero-badge">
+        <span class="ms-chip">SESSION 2026–2027</span>
+      </div>
+    </div>
+
+    {% for i in data %}
+    <div class="notice-card">
+      <div class="notice-tags">
+        <span class="notice-tag">{{i.priority}}</span>
+        <span class="notice-tag date">{{i.publish_date}}</span>
+      </div>
+      <div class="notice-title">{{i.title}}</div>
+      <div class="notice-body">{{i.message}}</div>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock content %}

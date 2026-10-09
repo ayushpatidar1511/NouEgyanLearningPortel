@@ -1,0 +1,497 @@
+      /* =========================================================
+   NALANDA THEME — same tokens as the login page.
+   Reuse this block on every page of the portal.
+   ========================================================= */
+      :root {
+        --ink: #171a2e;
+        --ink-soft: #262b48;
+        --brick: #7a3728;
+        --brick-deep: #55251a;
+        --parchment: #f3ecda;
+        --parchment-2: #e9dfc5;
+        --brass: #b8863b;
+        --brass-soft: #d8b876;
+        --sage: #7c8a6e;
+        --ink-text: #2a2418;
+
+        --font-display: "Cinzel", serif;
+        --font-body: "Work Sans", sans-serif;
+
+        --sidebar-w: 278px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background: var(--parchment-2); 
+        font-family: var(--font-body);
+        color: var(--ink-text);
+        min-height: 100vh;
+      }
+
+      /* ---------------- Sidebar ---------------- */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: var(--sidebar-w);
+        background:
+          repeating-linear-gradient(
+            115deg,
+            rgba(184, 134, 59, 0.05) 0 2px,
+            transparent 2px 26px
+          ),
+          linear-gradient(170deg, var(--brick) 0%, var(--brick-deep) 100%);
+        color: var(--parchment);
+        padding: 1.8rem 1.5rem 1.5rem;
+        overflow-y: auto;
+        z-index: 10;
+      }
+      .ms-footnote {
+    text-align: center;
+    font-size: 0.76rem;
+    color: #9a9078;
+    margin-top: 26px;
+  }
+      .sidebar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .sidebar::-webkit-scrollbar-thumb {
+        background: rgba(184, 134, 59, 0.4);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding-bottom: 1.3rem;
+        border-bottom: 1px solid rgba(184, 134, 59, 0.35);
+        margin-bottom: 1.3rem;
+      }
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        background: var(--parchment);
+        color: var(--brick);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0.02em;
+        flex: none;
+        border-radius: 10px;
+      }
+      .brand-text .school {
+        font-family: var(--font-display);
+        font-size: 1.02rem;
+        font-weight: 600;
+        line-height: 1.15;
+      }
+      .brand-text .place {
+        font-size: 0.72rem;
+        color: rgba(243, 236, 218, 0.7);
+      }
+
+      .nav-link-item.active{
+        border-radius: 10px;
+      }
+
+      .nav-link-item.active::after{
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--brass);
+        margin-left: auto;
+      }
+
+      .role-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(243, 236, 218, 0.08);
+        border: 1px solid rgba(184, 134, 59, 0.4);
+        padding: 0.4rem 0.8rem;
+        font-family: var(--font-display);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        color: var(--brass-soft);
+        margin-bottom: 1.6rem;
+        border-radius: 10px;
+      }
+      .role-badge .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--brass-soft);
+      }
+
+      .nav-group {
+        margin-bottom: 1.5rem;
+      }
+      .nav-group-title {
+        font-family: var(--font-body);
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        color: rgba(243, 236, 218, 0.5);
+        margin-bottom: 0.55rem;
+        padding-left: 0.15rem;
+      }
+      .nav-link-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.6rem 0.7rem;
+        font-size: 0.95rem;
+        color: rgba(243, 236, 218, 0.9);
+        text-decoration: none;
+        border-left: 2px solid transparent;
+        transition: all 0.15s ease;
+      }
+      .nav-link-item:hover {
+        background: rgba(243, 236, 218, 0.06);
+        color: var(--parchment);
+        border-radius: 10px;
+        margin-left: 3px;
+        transition: 0.3s ease;
+      }
+      .nav-link-item.active {
+        background: var(--parchment);
+        color: var(--brick);
+        font-weight: 600;
+        border-left: 2px solid var(--brass);
+      }
+      .nav-link-item .rune {
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        opacity: 0.85;
+      }
+      .nav-link-item .live-dot {
+        margin-left: auto;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--brass-soft);
+      }
+
+      /* ---------------- Main area ---------------- */
+      .main {
+        margin-left: var(--sidebar-w);
+        padding: 1rem 2rem 3rem;
+        
+      }
+
+      .topbar {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+        background: var(--parchment);
+      }
+      .topbar h1 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 1.9rem;
+        color: var(--ink);
+      }
+      .topbar .sub {
+        font-size: 0.9rem;
+        color: #6b6350;
+        margin-top: -8px;
+      }
+
+      .who-row {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+      }
+      .who-chip {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        background: var(--parchment);
+        border: 1px solid var(--parchment-2);
+        padding: 0.5rem 1rem 0.5rem 0.6rem;
+      }
+      .who-chip .avatar {
+        width: 36px;
+        height: 36px;
+        background: var(--brick);
+        color: var(--parchment);
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .who-chip .name {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1.2;
+      }
+      .who-chip .role {
+        font-size: 0.72rem;
+        color: var(--sage);
+      }
+
+      .btn-logout {
+        background: transparent;
+        border: 1.5px solid var(--brick);
+        color: var(--brick);
+        font-size: 0.82rem;
+        font-weight: 600;
+        padding: 0.55rem 1.2rem;
+        transition: all 0.2s ease;
+      }
+      .btn-logout:hover {
+        background: var(--brick);
+        color: var(--parchment);
+      }
+
+      /* ---------------- Stat cards (dark) ---------------- */
+      .stat-dark {
+        background: linear-gradient(
+          150deg,
+          var(--brick) 0%,
+          var(--brick-deep) 100%
+        );
+        color: var(--parchment);
+        padding: 1.6rem 1.5rem;
+        min-height: 148px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+      }
+      .stat-dark::after {
+        content: "";
+        position: absolute;
+        right: -30px;
+        bottom: -30px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: rgba(243, 236, 218, 0.06);
+      }
+      .stat-dark .label {
+        font-size: 0.85rem;
+        color: rgba(243, 236, 218, 0.85);
+      }
+      .stat-dark .num {
+        font-family: var(--font-display);
+        font-size: 2.3rem;
+        font-weight: 700;
+        margin: 0.3rem 0;
+      }
+      .stat-dark .note {
+        font-size: 0.75rem;
+        color: var(--brass-soft);
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      /* ---------------- Stat cards (light) ---------------- */
+      .stat-light {
+        background: var(--parchment);
+        border: 1px solid var(--parchment-2);
+        padding: 1.5rem 1.4rem;
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+      }
+      .stat-light:hover{
+        margin-top: -3px;
+        transition: 0.3s ease;
+        border-color: var(--brass);
+      }
+      .stat-light .top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.3rem;
+      }
+      .stat-light .icon-badge {
+        width: 40px;
+        height: 40px;
+        background: var(--brick);
+        color: var(--parchment);
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .stat-light .tag {
+        background: rgba(122, 55, 40, 0.08);
+        color: var(--brick);
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        padding: 0.3rem 0.6rem;
+        font-weight: 600;
+      }
+      .stat-light .num {
+        font-family: var(--font-display);
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .stat-light .label {
+        font-size: 0.85rem;
+        color: #6b6350;
+        margin-top: 0.2rem;
+      }
+
+      /* ---------------- Section headings ---------------- */
+      .section-head {
+        margin: 2.2rem 0 1.2rem;
+      }
+      .section-head h2 {
+        font-family: var(--font-display);
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .section-head .sub {
+        font-size: 0.85rem;
+        color: #6b6350;
+      }
+
+      /* ---------------- Quick action cards ---------------- */
+      .qa-card {
+        background: var(--parchment);
+        border: 1px solid var(--parchment-2);
+        padding: 1.3rem 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+        transition:
+          border-color 0.2s ease,
+          transform 0.15s ease;
+      }
+      .qa-card:hover {
+        border-color: var(--brass);
+        transform: translateY(-2px);
+      }
+      .qa-card .icon-badge {
+        width: 44px;
+        height: 44px;
+        background: rgba(122, 55, 40, 0.08);
+        color: var(--brick);
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .qa-card .title {
+        font-size: 0.98rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .qa-card .desc {
+        font-size: 0.8rem;
+        color: #6b6350;
+      }
+      .qa-card .arrow {
+        margin-left: auto;
+        color: var(--brass);
+        font-size: 1.1rem;
+      }
+
+      /* ---------------- Bottom panels ---------------- */
+      .panel {
+        background: var(--parchment);
+        border: 1px solid var(--parchment-2);
+        padding: 1.5rem 1.6rem;
+        min-height: 260px;
+      }
+      .panel-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 1.2rem;
+      }
+      .panel-head h3 {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .panel-head .sub {
+        font-size: 0.8rem;
+        color: #6b6350;
+      }
+      .pill {
+        background: rgba(122, 55, 40, 0.08);
+        color: var(--brick);
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        padding: 0.3rem 0.65rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .empty-note {
+        text-align: center;
+        color: #8a8168;
+        font-size: 0.88rem;
+        padding: 3rem 0;
+      }
+      .notice-item {
+        display: flex;
+        gap: 0.7rem;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid var(--parchment-2);
+      }
+      .notice-item:last-child {
+        border-bottom: none;
+      }
+      .notice-item .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--brass);
+        margin-top: 0.4rem;
+        flex: none;
+      }
+      .notice-item .title {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .notice-item .body {
+        font-size: 0.82rem;
+        color: #6b6350;
+        margin: 0.15rem 0;
+      }
+      .notice-item .meta {
+        font-size: 0.72rem;
+        color: var(--sage);
+      }
+
+      @media (max-width: 991px) {
+        .sidebar {
+          transform: translateX(-100%);
+          transition: transform 0.2s ease;
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .main {
+          margin-left: 0;
+          padding: 1.6rem 1.2rem 2.4rem;
+        }
+      }

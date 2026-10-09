@@ -1,0 +1,197 @@
+{% extends "teacher/base.html" %} {% block content %}
+<div class="content">
+  <!-- =========================================================
+     MAIN SECTION ONLY — My Courses (forest-green theme)
+     ========================================================= -->
+  <style>
+    :root {
+      --ink: #171a2e;
+      --brick: #2e4a34;
+      --brick-deep: #1d3323;
+      --parchment: #f3ecda;
+      --parchment-2: #e9dfc5;
+      --brass: #b8863b;
+      --brass-soft: #d8b876;
+      --ink-text: #2a2418;
+      --font-display: "Cinzel", serif;
+      --font-body: "Work Sans", sans-serif;
+    }
+    .ms-wrap {
+      font-family: var(--font-body);
+      color: var(--ink-text);
+    }
+    .ms-hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      padding: 30px 34px;
+      background: linear-gradient(
+        155deg,
+        var(--brick) 0%,
+        var(--brick-deep) 100%
+      );
+      border: 1px solid var(--brick-deep);
+      color: var(--parchment);
+      margin-bottom: 24px;
+    }
+    .ms-hero::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      bottom: -40px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(216, 184, 118, 0.1);
+    }
+    .ms-hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+    .ms-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      color: var(--brass-soft);
+      margin-bottom: 10px;
+    }
+    .ms-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 2.8vw, 1.9rem);
+      margin: 0 0 8px;
+      line-height: 1.2;
+    }
+    .ms-desc {
+      font-size: 0.9rem;
+      color: rgba(243, 236, 218, 0.8);
+      max-width: 520px;
+    }
+    .ms-chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .ms-chip {
+      background: rgba(243, 236, 218, 0.1);
+      border: 1px solid rgba(216, 184, 118, 0.4);
+      color: var(--brass-soft);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 6px 15px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .ms-hero-badge {
+      position: relative;
+      z-index: 1;
+      margin-top: 20px;
+      display: inline-block;
+    }
+
+    .ms-panel {
+      background: #fff;
+      border: 1px solid var(--parchment-2);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .ms-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .ms-table thead th {
+      text-align: left;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--brick);
+      font-weight: 700;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--parchment-2);
+      background: var(--parchment);
+    }
+    .ms-table tbody td {
+      padding: 16px 24px;
+      font-size: 0.88rem;
+      border-bottom: 1px solid var(--parchment-2);
+      color: var(--ink);
+    }
+    .ms-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .ms-table tbody tr:hover {
+      background: #fbf8f1;
+    }
+    .ms-empty {
+      padding: 56px 24px;
+      text-align: center;
+      color: #8a8067;
+      font-size: 0.88rem;
+    }
+    .ms-footnote {
+      text-align: center;
+      font-size: 0.76rem;
+      color: #9a9078;
+      margin-top: 26px;
+    }
+  </style>
+
+  <div class="ms-wrap">
+    <div class="ms-hero">
+      <div class="ms-hero-top">
+        <div>
+          <div class="ms-eyebrow">NOU DIGITAL CAMPUS</div>
+          <h1 class="ms-title">My Courses</h1>
+          <div class="ms-desc">
+            Courses assigned through your subject allocation.
+          </div>
+        </div>
+        <div class="ms-chips">
+          <span class="ms-chip">ACADEMIC ERP</span>
+          <span class="ms-chip">SESSION 2026–2027</span>
+        </div>
+      </div>
+      <div class="ms-hero-badge">
+        <span class="ms-chip">SESSION 2026–2027</span>
+      </div>
+    </div>
+
+    <div class="ms-panel">
+      <table class="ms-table">
+        <thead>
+          <tr>
+            <th style="width: 56px">#</th>
+            <th>CODE</th>
+            <th>COURSE</th>
+            <th>SESSION</th>
+            <th>LEVEL</th>
+            <th>DURATION</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in courses %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ c.course_code }}</td>
+          <td>{{ c.course_name }}</td>
+          <td>{{ c.session }}</td>
+          <td>{{ c.level }}</td>
+          <td>{{ c.duration }}</td>
+        </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6" class="ms-empty">No assigned courses.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+{% endblock content %}
