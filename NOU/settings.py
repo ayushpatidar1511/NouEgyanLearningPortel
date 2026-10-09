@@ -15,19 +15,23 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+if DEBUG:
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(sg-%qv043p+amvvf^(1zlq!un_5r=nx-q+57j8*ksg1#0o87a'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-only-key-change-me")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+    if host.strip()
+]
 
 
 # Application definition
